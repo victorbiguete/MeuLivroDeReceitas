@@ -1,5 +1,6 @@
 ﻿using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Response;
+using MyRecipeBook.Exceptions.ExceptionsBase;
 
 namespace MyRecipeBook.Application.UseCases.User.Register
 {
@@ -8,7 +9,7 @@ namespace MyRecipeBook.Application.UseCases.User.Register
         public ResponseRegisteredUserJson Execute(RequestRegisterUserJson request)
         {
             //Validar Request
-
+            Validate(request);
             //Mappear a Request em Entidade
 
             //Criptografar a Senha
@@ -19,6 +20,19 @@ namespace MyRecipeBook.Application.UseCases.User.Register
             {
                 Name = request.Name
             };
+        }
+        private void Validate(RequestRegisterUserJson request)
+        {
+            var validator = new RegisterUserValidator();
+
+            var result = validator.Validate(request);
+
+            if (!result.IsValid)
+            {
+                var errorMessages = result.Errors.Select(e => e.ErrorMessage).ToList();
+
+                throw new ErrorOnValidationException(errorMessages);
+            }
         }
     }
 }

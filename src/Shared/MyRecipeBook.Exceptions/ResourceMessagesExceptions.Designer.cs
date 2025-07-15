@@ -95,5 +95,14 @@ namespace MyRecipeBook.Exceptions {
                 return ResourceManager.GetString("PASSWORD_EMPTY", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Erro Unkown.
+        /// </summary>
+        public static string UNKOWN_ERROR {
+            get {
+                return ResourceManager.GetString("UNKOWN_ERROR", resourceCulture);
+            }
+        }
     }
 }

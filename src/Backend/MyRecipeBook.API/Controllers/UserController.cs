@@ -15,8 +15,7 @@ namespace MyRecipeBook.API.Controllers
         [ProducesResponseType(typeof(ResponseRegisteredUserJson),StatusCodes.Status201Created)]
          public IActionResult Register(RequestRegisterUserJson request)
         {
-            Validate(request);
-
+            
             var useCase = new RegisterUserUseCase();
 
             var result = useCase.Execute(request);
@@ -24,18 +23,6 @@ namespace MyRecipeBook.API.Controllers
             return Created(string.Empty,result);
         }
 
-        private void Validate(RequestRegisterUserJson request)
-        {
-            var validator = new RegisterUserValidator();
-
-            var result = validator.Validate(request);
-
-            if (!result.IsValid)
-            {
-                var errorMessages = result.Errors.Select(e => e.ErrorMessage).ToList();
-
-                throw new ErrorOnValidationException(errorMessages);
-            }
-        }
+        
     }
 }
