@@ -10,7 +10,13 @@ namespace MyRecipeBook.Application.UseCases.User.Register
         {
             //Validar Request
             Validate(request);
-            //Mappear a Request em Entidade
+
+            var autoMapper = new AutoMapper.MapperConfiguration(options =>
+            {
+                options.AddProfile(new Services.AutoMapper.AutoMapping());
+            }).CreateMapper();
+
+            var user = autoMapper.Map<Domain.Entities.User>(request);
 
             //Criptografar a Senha
 
