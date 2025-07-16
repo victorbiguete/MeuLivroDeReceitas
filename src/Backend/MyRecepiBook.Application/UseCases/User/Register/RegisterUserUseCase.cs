@@ -17,6 +17,7 @@ namespace MyRecipeBook.Application.UseCases.User.Register
             }).CreateMapper();
 
             var user = autoMapper.Map<Domain.Entities.User>(request);
+            var user = autoMapper.Map<Domain.Entities.User>(request);
 
             //Criptografar a Senha
 
