@@ -22,7 +22,7 @@ namespace MyRecipeBook.Application.UseCases.User.Register
 
             user.Password = criptografiaDeSenha.Encrypt(request.Password);
 
-            //Criptografar a Senha
+           //Criptografar a Senha
 
             //Salvar no banco
 
