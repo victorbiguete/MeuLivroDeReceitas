@@ -1,4 +1,5 @@
-﻿using MyRecipeBook.Application.Cryptography;
+﻿using AutoMapper;
+using MyRecipeBook.Application.Cryptography;
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Response;
 using MyRecipeBook.Domain.Repositories.User;
@@ -7,25 +8,29 @@ using System.Threading.Tasks;
 
 namespace MyRecipeBook.Application.UseCases.User.Register
 {
-    public class RegisterUserUseCase
+    public class RegisterUserUseCase : IRegisterUserUseCase
     {
         private readonly IUserReadOnlyRepository _readOnlyRepository;
         private readonly IUserWriteOnlyRepository _writeOnlyRepository;
+        private readonly IMapper _mapper;
+        private readonly PasswordEncripter _passwordEncripter;
+
+        public RegisterUserUseCase(IUserReadOnlyRepository readOnlyRepository, IUserWriteOnlyRepository writeOnlyRepository, IMapper mapper, PasswordEncripter passwordEncripter)
+        {
+            _readOnlyRepository = readOnlyRepository;
+            _writeOnlyRepository = writeOnlyRepository;
+            _mapper = mapper;
+            _passwordEncripter = passwordEncripter;
+        }
 
         public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)
         {
-            var criptografiaDeSenha = new PasswordEncripter();
-
-            var autoMapper = new AutoMapper.MapperConfiguration(options =>
-            {
-                options.AddProfile(new Services.AutoMapper.AutoMapping());
-            }).CreateMapper();
-
+            
             Validate(request);
 
-            var user = autoMapper.Map<Domain.Entities.User>(request);
+            var user = _mapper.Map<Domain.Entities.User>(request);
 
-            user.Password = criptografiaDeSenha.Encrypt(request.Password);
+            user.Password = _passwordEncripter.Encrypt(request.Password);
 
             await _writeOnlyRepository.Add(user);
 

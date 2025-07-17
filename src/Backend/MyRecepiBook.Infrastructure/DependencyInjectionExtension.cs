@@ -12,7 +12,7 @@ namespace MyRecipeBook.Infrastructure
         {
             
         }
-        private void AddDbContext_SqlServer(IServiceCollection services)
+        private static void AddDbContext_SqlServer(IServiceCollection services)
         {
             var connectionString = "Server=.; Database=meulivrodereceita; Trusted_Connection=True; TrustServerCertificate=true;";
             services.AddDbContext<AppDbContext>(options =>
@@ -20,7 +20,7 @@ namespace MyRecipeBook.Infrastructure
                 options.UseSqlServer(connectionString);
             });
         }
-        private void AddRepository(IServiceCollection services)
+        private static void AddRepository(IServiceCollection services)
         {
             services.AddScoped<IUserReadOnlyRepository, UserRepository>();
             services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
