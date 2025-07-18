@@ -21,11 +21,14 @@ namespace MyRecipeBook.Infrastructure.DataAccess.Repositories
         public async Task Add(User user)
         {
             await _context.Users.AddAsync(user);
+            
         }
 
         public async Task<bool> ExistActiveUserWithEmail(string email)
         {
             return await _context.Users.AnyAsync(u => u.Active && u.Email.Equals(email));
         }
+
+        
     }
 }
