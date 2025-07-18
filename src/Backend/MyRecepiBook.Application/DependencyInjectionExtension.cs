@@ -16,7 +16,7 @@ namespace MyRecipeBook.Application
         {
             AddUseCases(services);
             AddAutoMapper(services);
-            AddPasswordEncrypter(services);
+            AddPasswordEncrypter(services,configuration);
         }
 
         private static void AddUseCases(IServiceCollection services)
@@ -26,8 +26,8 @@ namespace MyRecipeBook.Application
 
         private static void AddPasswordEncrypter(IServiceCollection services, IConfiguration configuration)
         {
-            var additionalKey = configuration.GetSection("Settings:Password:AdditionalKey").Value;
-            services.AddScoped(option => new PasswordEncripter(additionalKey));
+            var additionalKey = configuration.GetValue<string>("Settings:Password:AdditionalKey");
+            services.AddScoped(option => new PasswordEncripter(additionalKey!));
         }
 
         private static void AddAutoMapper(IServiceCollection services)
