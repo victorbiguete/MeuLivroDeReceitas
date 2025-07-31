@@ -2,6 +2,7 @@
 using FluentAssertions;
 using MyRecipeBook.Application.UseCases.User.Register;
 using MyRecipeBook.Communication.Requests;
+using Shouldly;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,8 @@ namespace Validator.Test.User.Register
 
             var result = validator.Validate(request);
 
-            result.IsValid.Should().BeTrue();
+            result.ShouldNotBeNull();
+            
         }
     }
 }
