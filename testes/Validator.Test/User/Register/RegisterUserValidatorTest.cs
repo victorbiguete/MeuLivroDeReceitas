@@ -1,4 +1,5 @@
-﻿using MyRecipeBook.Application.UseCases.User.Register;
+﻿using CommomTestsUtilities.Requests;
+using MyRecipeBook.Application.UseCases.User.Register;
 using MyRecipeBook.Communication.Requests;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,11 @@ namespace Validator.Test.User.Register
         {
             var validator = new RegisterUserValidator();
 
-            
+            var request = RequestRegisterUserJsonBuilder.Build();
 
-            var result = validator.Validate();
+            var result = validator.Validate(request);
 
-            result.IsValid == true
+            //result.IsValid == true
         }
     }
 }
