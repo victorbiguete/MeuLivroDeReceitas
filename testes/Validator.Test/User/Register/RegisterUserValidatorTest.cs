@@ -1,4 +1,5 @@
 ﻿using CommomTestsUtilities.Requests;
+using FluentAssertions;
 using MyRecipeBook.Application.UseCases.User.Register;
 using MyRecipeBook.Communication.Requests;
 using System;
@@ -20,7 +21,7 @@ namespace Validator.Test.User.Register
 
             var result = validator.Validate(request);
 
-            //result.IsValid == true
+            result.IsValid.Should().BeTrue();
         }
     }
 }
