@@ -1,4 +1,6 @@
-﻿using CommomTestsUtilities.Requests;
+﻿using CommomTestsUtilities.Cryptography;
+using CommomTestsUtilities.Mapper;
+using CommomTestsUtilities.Requests;
 using FluentAssertions;
 using MyRecipeBook.Application.UseCases.User.Register;
 using System;
@@ -14,6 +16,10 @@ namespace UserCases.Test.User.Register
         public async Task Success()
         {
             var useCase = new RegisterUserUseCase();
+
+            var mapper = MapperBuilder.Build();
+
+            var passwordEncripter = PasswordEncripterBuilder.Build();
 
             var request = RequestRegisterUserJsonBuilder.Build();
 
