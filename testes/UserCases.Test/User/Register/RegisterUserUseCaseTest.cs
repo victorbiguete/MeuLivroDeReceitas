@@ -1,6 +1,7 @@
 ﻿using CommomTestsUtilities.Cryptography;
 using CommomTestsUtilities.Mapper;
 using CommomTestsUtilities.Requests;
+using CommomTestsUtilities.Repositories;
 using FluentAssertions;
 using MyRecipeBook.Application.UseCases.User.Register;
 using System;
@@ -15,13 +16,17 @@ namespace UserCases.Test.User.Register
     {
         public async Task Success()
         {
-            var useCase = new RegisterUserUseCase();
-
             var mapper = MapperBuilder.Build();
 
             var passwordEncripter = PasswordEncripterBuilder.Build();
 
+            var writeRepository = UserWriteOnlyRepositoryBuilder.Build();
+
+            var unitOfWork = UnitOfWorkBuilder.Build();
+
             var request = RequestRegisterUserJsonBuilder.Build();
+
+            var useCase = new RegisterUserUseCase();
 
             var result = await useCase.Execute(request);
 
