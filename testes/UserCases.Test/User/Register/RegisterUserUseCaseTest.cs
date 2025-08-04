@@ -14,7 +14,21 @@ namespace UserCases.Test.User.Register
 {
     public class RegisterUserUseCaseTest
     {
+        [Fact]
         public async Task Success()
+        {
+            var request = RequestRegisterUserJsonBuilder.Build();
+
+            var useCase = CreateUseCase();
+
+            var result = await useCase.Execute(request);
+
+            result.Name.Should().NotBeNull();
+            result.Name.Should().Be(request.Name);
+
+        }
+
+        private RegisterUserUseCase CreateUseCase()
         {
             var mapper = MapperBuilder.Build();
 
@@ -24,16 +38,9 @@ namespace UserCases.Test.User.Register
 
             var unitOfWork = UnitOfWorkBuilder.Build();
 
-            var request = RequestRegisterUserJsonBuilder.Build();
+            var readRepository = new UserReadOnlyRepositoryBuilder().Build();
 
-            var useCase = new RegisterUserUseCase();
-
-            var result = await useCase.Execute(request);
-
-            result.Name.Should().NotBeNull();
-            result.Name.Should().Be(request.Name);
-
-            
+            return new RegisterUserUseCase(readRepository, writeRepository, mapper, passwordEncripter, unitOfWork);
         }
     }
 }
