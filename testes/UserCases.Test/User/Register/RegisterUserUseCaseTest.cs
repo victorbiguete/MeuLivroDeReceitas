@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MyRecipeBook.Exceptions.ExceptionsBase;
+using MyRecipeBook.Exceptions;
 
 namespace UserCases.Test.User.Register
 {
@@ -28,11 +30,31 @@ namespace UserCases.Test.User.Register
 
         }
 
+        [Fact]
         public async Task Error_Email_Already_Registered()
         {
             var request = RequestRegisterUserJsonBuilder.Build();
 
             var useCase = CreateUseCase(request.Email);
+
+            Func<Task> act = async () => await useCase.Execute(request);
+
+            (await act.Should().ThrowAsync<ErrorOnValidationException>())
+                .Where(e => e.ErrorsMessages.Count == 1 && e.ErrorsMessages.Contains(ResourceMessagesExceptions.EMAIL_ALREADY_REGISTERED));
+        }
+        [Fact]
+        public async Task Error_Name_Empty()
+        {
+            var request = RequestRegisterUserJsonBuilder.Build();
+
+            request.Name = string.Empty;
+
+            var useCase = CreateUseCase();
+
+            Func<Task> act = async () => await useCase.Execute(request);
+
+            (await act.Should().ThrowAsync<ErrorOnValidationException>())
+                .Where(e => e.ErrorsMessages.Count == 1 && e.ErrorsMessages.Contains(ResourceMessagesExceptions.NAME_EMPTY));
         }
 
         private RegisterUserUseCase CreateUseCase(string? email = null)

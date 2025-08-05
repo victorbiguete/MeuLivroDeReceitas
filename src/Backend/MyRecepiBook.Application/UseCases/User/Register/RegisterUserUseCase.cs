@@ -54,7 +54,7 @@ namespace MyRecipeBook.Application.UseCases.User.Register
 
             if(emailExist)
             {
-                result.Errors.Add(new FluentValidation.Results.ValidationFailure(string.Empty, ResourceMessagesExceptions.EMAIL_EMPTY));
+                result.Errors.Add(new FluentValidation.Results.ValidationFailure(string.Empty, ResourceMessagesExceptions.EMAIL_ALREADY_REGISTERED));
             }
 
             if (!result.IsValid)
