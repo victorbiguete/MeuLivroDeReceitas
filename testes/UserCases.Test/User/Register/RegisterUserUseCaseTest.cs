@@ -28,7 +28,14 @@ namespace UserCases.Test.User.Register
 
         }
 
-        private RegisterUserUseCase CreateUseCase()
+        public async Task Error_Email_Already_Registered()
+        {
+            var request = RequestRegisterUserJsonBuilder.Build();
+
+            var useCase = CreateUseCase(request.Email);
+        }
+
+        private RegisterUserUseCase CreateUseCase(string? email = null)
         {
             var mapper = MapperBuilder.Build();
 
@@ -38,9 +45,12 @@ namespace UserCases.Test.User.Register
 
             var unitOfWork = UnitOfWorkBuilder.Build();
 
-            var readRepository = new UserReadOnlyRepositoryBuilder().Build();
+            var readRepositoryBuilder = new UserReadOnlyRepositoryBuilder();
 
-            return new RegisterUserUseCase(readRepository, writeRepository, mapper, passwordEncripter, unitOfWork);
+            if(!string.IsNullOrEmpty(email))
+                readRepositoryBuilder.ExistActiveUserWithEmail(email);
+
+            return new RegisterUserUseCase(readRepositoryBuilder.Build(), writeRepository, mapper, passwordEncripter, unitOfWork);
         }
     }
 }

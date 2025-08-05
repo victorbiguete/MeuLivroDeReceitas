@@ -21,5 +21,10 @@ namespace CommomTestsUtilities.Repositories
         {
             return _repository.Object;
         }
+
+        public void ExistActiveUserWithEmail(string email)
+        {
+            _repository.Setup(repository => repository.ExistActiveUserWithEmail(email)).ReturnsAsync(true);
+        }
     }
 }
