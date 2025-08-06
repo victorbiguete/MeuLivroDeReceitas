@@ -15,9 +15,14 @@ namespace MyRecipeBook.Infrastructure
     {
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            AddDbContext_SqlServer(services,configuration);
             AddRepository(services);
+            
+            if (configuration.IsUnitTestEnviroment())
+                return;
+            
+            AddDbContext_SqlServer(services,configuration);
             AddFluentMigrator(services,configuration);
+            
         }
         private static void AddDbContext_SqlServer(IServiceCollection services, IConfiguration configuration)
         {

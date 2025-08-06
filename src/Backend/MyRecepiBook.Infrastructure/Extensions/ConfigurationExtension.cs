@@ -14,5 +14,10 @@ namespace MyRecipeBook.Infrastructure.Extensions
         {
             return configuration.GetConnectionString("DefaultConnection")!;
         }
+
+        public static bool IsUnitTestEnviroment(this IConfiguration configuration)
+        {
+            return configuration.GetValue<bool>("InMemoryTest");
+        }
     }
 }
