@@ -1,6 +1,8 @@
 ﻿using CommomTestsUtilities.Requests;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
+using MyRecipeBook.Exceptions;
+using System.Globalization;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -59,9 +61,11 @@ namespace WebApi.Test.User.Register
 
             var errors = responseData.RootElement.GetProperty("errors").EnumerateArray();
 
+            var expectedMessage = ResourceMessagesExceptions.ResourceManager.GetString("NAME_EMPTY",new CultureInfo(culture));
+
             errors.Should()
                 .ContainSingle()
-                .And.Contain(error => error.GetString().Equals(""));
+                .And.Contain(error => error.GetString()!.Equals(expectedMessage));
         }
     }
 }
