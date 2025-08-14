@@ -18,8 +18,4 @@
     <ProjectReference Include="..\MyRecepiBook.Infrastructure\MyRecipeBook.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="NovaPasta\" />
-  </ItemGroup>
-
 </Project>

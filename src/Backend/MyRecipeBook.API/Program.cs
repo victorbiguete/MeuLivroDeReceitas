@@ -50,4 +50,7 @@ void MigrateDatabase()
     DatabaseMigration.Migrate(connectionString,serviceScope.ServiceProvider);
 }
 
-public partial class Program { }
+public partial class Program
+{
+    protected Program() { }
+}
