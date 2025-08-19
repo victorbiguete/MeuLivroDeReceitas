@@ -29,6 +29,9 @@ namespace MyRecipeBook.Infrastructure.DataAccess.Repositories
             return await _context.Users.AnyAsync(u => u.Active && u.Email.Equals(email));
         }
 
-        
+        public async Task<User?> GetByEmailAndPassword(string email, string password)
+        {
+            return await _context.Users.AsNoTracking().FirstOrDefaultAsync(user => user.Active && user.Email.Equals(email) && user.Password.Equals(password));
+        }
     }
 }
