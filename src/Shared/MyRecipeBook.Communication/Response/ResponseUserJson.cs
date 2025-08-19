@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace MyRecipeBook.Communication.Response
 {
-    public class ResponseUserJson
+    public class ResponseErrorJson
     {
         public IList<string> Errors { get; set; }
 
-        public ResponseUserJson(IList<string> errors)
+        public ResponseErrorJson(IList<string> errors)
         {
             Errors = errors;
         }
 
-        public ResponseUserJson(string error)
+        public ResponseErrorJson(string error)
         {
             //Errors = [error];
             Errors = new List<string>

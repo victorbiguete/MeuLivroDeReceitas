@@ -23,21 +23,21 @@ namespace MyRecipeBook.API.Filter
             if(context.Exception is InvalidLoginException)
             {
                 context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                context.Result = new UnauthorizedObjectResult(new ResponseUserJson(context.Exception.Message));
+                context.Result = new UnauthorizedObjectResult(new ResponseErrorJson(context.Exception.Message));
             }
             else if(context.Exception is ErrorOnValidationException)
             {
                 var exception = context.Exception as ErrorOnValidationException;
 
                 context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                context.Result = new BadRequestObjectResult(new ResponseUserJson(exception!.ErrorsMessages));
+                context.Result = new BadRequestObjectResult(new ResponseErrorJson(exception!.ErrorsMessages));
             }
         }
 
         private static void ThrowUnknowException(ExceptionContext context)
         {
             context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            context.Result = new ObjectResult(new ResponseUserJson(ResourceMessagesExceptions.UNKOWN_ERROR));
+            context.Result = new ObjectResult(new ResponseErrorJson(ResourceMessagesExceptions.UNKOWN_ERROR));
         }
     }
 }
