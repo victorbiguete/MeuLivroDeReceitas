@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace MyRecipeBook.Exceptions.ExceptionsBase
 {
-    public class MyRecipeBookExceptions : Exception
+    public class InvalidLoginException : MyRecipeBookExceptions
     {
-        public MyRecipeBookExceptions(string message) : base(message) 
+        public InvalidLoginException() : base(ResourceMessagesExceptions.EMAIL_OR_PASSWORD_INVALID)
         {
-
         }
     }
 }

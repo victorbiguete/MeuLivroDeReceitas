@@ -126,11 +126,17 @@
   <data name="EMAIL_INVALID" xml:space="preserve">
     <value>The Email Adress is invalid</value>
   </data>
+  <data name="EMAIL_OR_PASSWORD_INVALID" xml:space="preserve">
+    <value>The Email or Password is invalid</value>
+  </data>
   <data name="NAME_EMPTY" xml:space="preserve">
     <value>The Name cannot be empty</value>
   </data>
   <data name="PASSWORD_EMPTY" xml:space="preserve">
     <value>The Passoword must be longer than 6 characters</value>
+  </data>
+  <data name="PASSWORD_MUST_BE_LONGER_THAN_6_CHARACTERS" xml:space="preserve">
+    <value>The Password must be longer than 6 characters</value>
   </data>
   <data name="UNKOWN_ERROR" xml:space="preserve">
     <value>Erro Unkown</value>
