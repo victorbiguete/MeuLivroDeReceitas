@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace MyRecipeBook.Communication.Response
 {
-    public record ResponseRegisteredUserJson
+    public record ResponseTokensJson
     {
-        public string Name { get; set; } = string.Empty;
-        public ResponseTokensJson Tokens { get; set; } = default!;
+        public string AccessToken { get; set; } = string.Empty;
     }
 }
