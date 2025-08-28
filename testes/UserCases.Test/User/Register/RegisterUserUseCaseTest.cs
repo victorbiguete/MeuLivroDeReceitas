@@ -1,16 +1,17 @@
 ﻿using CommomTestsUtilities.Cryptography;
 using CommomTestsUtilities.Mapper;
-using CommomTestsUtilities.Requests;
 using CommomTestsUtilities.Repositories;
+using CommomTestsUtilities.Requests;
+using CommomTestsUtilities.Tokens;
 using FluentAssertions;
 using MyRecipeBook.Application.UseCases.User.Register;
+using MyRecipeBook.Exceptions;
+using MyRecipeBook.Exceptions.ExceptionsBase;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MyRecipeBook.Exceptions.ExceptionsBase;
-using MyRecipeBook.Exceptions;
 
 namespace UserCases.Test.User.Register
 {
@@ -26,8 +27,9 @@ namespace UserCases.Test.User.Register
             var result = await useCase.Execute(request);
 
             result.Name.Should().NotBeNull();
+            result.Tokens.Should().NotBeNull();
             result.Name.Should().Be(request.Name);
-
+            result.Tokens.AccessToken.Should().NotBeNullOrEmpty();
         }
 
         [Fact]
@@ -69,10 +71,12 @@ namespace UserCases.Test.User.Register
 
             var readRepositoryBuilder = new UserReadOnlyRepositoryBuilder();
 
-            if(!string.IsNullOrEmpty(email))
+            var accessTokenGenerator = JwtTokenGeneratorBuilder.Build();
+
+            if (!string.IsNullOrEmpty(email))
                 readRepositoryBuilder.ExistActiveUserWithEmail(email);
 
-            return new RegisterUserUseCase(readRepositoryBuilder.Build(), writeRepository, mapper, passwordEncripter, unitOfWork);
+            return new RegisterUserUseCase(readRepositoryBuilder.Build(), writeRepository, mapper, passwordEncripter, unitOfWork, accessTokenGenerator);
         }
     }
 }

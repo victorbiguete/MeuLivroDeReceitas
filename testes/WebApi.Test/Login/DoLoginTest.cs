@@ -40,6 +40,12 @@ namespace WebApi.Test.Login
 
             var response = await DoPost(method, request);
 
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorBody = await response.Content.ReadAsStringAsync();
+                throw new Exception($"StatusCode: {response.StatusCode}, Body: {errorBody}");
+            }
+
             response.StatusCode.Should().Be(HttpStatusCode.OK);
 
             await using var responseBody = await response.Content.ReadAsStreamAsync();
@@ -51,6 +57,8 @@ namespace WebApi.Test.Login
                 .Should()
                 .NotBeNullOrWhiteSpace()
                 .And.Be(_name);
+
+            responseData.RootElement.GetProperty("tokens").GetProperty("accessToken").GetString().Should().NotBeNullOrEmpty();
         }
         
 

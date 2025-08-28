@@ -24,6 +24,9 @@ namespace WebApi.Test.User.Register
 
             var response = await DoPost(method, request);
 
+            var responseContent = await response.Content.ReadAsStringAsync();
+            Console.WriteLine(responseContent);
+
             response.StatusCode.Should().Be(HttpStatusCode.Created);
 
             await using var responseBody = await response.Content.ReadAsStreamAsync();
@@ -35,6 +38,8 @@ namespace WebApi.Test.User.Register
                 .Should()
                 .NotBeNullOrWhiteSpace()
                 .And.Be(request.Name);
+
+            responseData.RootElement.GetProperty("tokens").GetProperty("accessToken").GetString().Should().NotBeNullOrEmpty();
         }
 
         [Theory]

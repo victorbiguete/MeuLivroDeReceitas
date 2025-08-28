@@ -23,9 +23,9 @@ namespace MyRecipeBook.Infrastructure.Security.Tokens.Access.Generator
 
         public string Generate(Guid userIdentifier)
         {
-            var claims = new List<Claim>();
+            var claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.Sid, userIdentifier.ToString());
+                new Claim(ClaimTypes.Sid, userIdentifier.ToString())
             };
 
             var tokenDescripter = new SecurityTokenDescriptor

@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CommomTestsUtilities.Tokens;
 
 namespace UserCases.Test.Login.DoLogin
 {
@@ -32,7 +33,9 @@ namespace UserCases.Test.Login.DoLogin
             });
 
             result.Should().NotBeNull();
+            result.Tokens.Should().NotBeNull();
             result.Name.Should().NotBeNullOrWhiteSpace().And.Be(user.Name);
+            result.Tokens.AccessToken.Should().NotBeNullOrEmpty();
         }
 
         [Fact]
@@ -54,13 +57,13 @@ namespace UserCases.Test.Login.DoLogin
         private static DoLoginUseCase CreateUseCase(MyRecipeBook.Domain.Entities.User user)
         {
             var passordEncripter = PasswordEncripterBuilder.Build();
-
             var userReadOnlyRepositoryBuilder = new UserReadOnlyRepositoryBuilder();
+            var accessTokenGenerator = JwtTokenGeneratorBuilder.Build();
 
             if (user is not null)
                 userReadOnlyRepositoryBuilder.GetByEmailAndPassoword(user)
 ;
-            return new DoLoginUseCase(userReadOnlyRepositoryBuilder.Build(), passordEncripter);
+            return new DoLoginUseCase(userReadOnlyRepositoryBuilder.Build(), passordEncripter, accessTokenGenerator);
         }
     }
 }
