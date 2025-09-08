@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Backend\MyRecipeBook.API\MyRecipeBook.API.csproj" />
-    <ProjectReference Include="..\..\src\Backend\MyRecipeBook.Domain\MyRecipeBook.Domain.csproj" />
     <ProjectReference Include="..\CommomTestsUtilities\CommomTestsUtilities.csproj" />
   </ItemGroup>
 
