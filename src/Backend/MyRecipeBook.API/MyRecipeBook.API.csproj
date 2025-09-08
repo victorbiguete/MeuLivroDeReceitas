@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -17,6 +17,7 @@
     <ProjectReference Include="..\..\Shared\MyRecipeBook.Exceptions\MyRecipeBook.Exceptions.csproj" />
     <ProjectReference Include="..\MyRecepiBook.Application\MyRecipeBook.Application.csproj" />
     <ProjectReference Include="..\MyRecepiBook.Infrastructure\MyRecipeBook.Infrastructure.csproj" />
+    <ProjectReference Include="..\MyRecipeBook.Domain\MyRecipeBook.Domain.csproj" />
   </ItemGroup>
 
 </Project>

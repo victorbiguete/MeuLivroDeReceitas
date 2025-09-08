@@ -9,6 +9,8 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using MyRecipeBook.Domain.Security.Tokens;
+using MyRecipeBook.API.Token;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,27 +50,12 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 });
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = jwtIssuer,
-        ValidAudience = jwtIssuer,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
-    };
-});
-
 builder.Services.AddMvc(options => options.Filters.Add(typeof(ExceptionFilter)));
-
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication(builder.Configuration);
-
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
+builder.Services.AddScoped<ITokenProvider, HttpContextTokenValue>();
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 

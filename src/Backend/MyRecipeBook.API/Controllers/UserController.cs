@@ -1,15 +1,18 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyRecipeBook.API.Attributes;
 using MyRecipeBook.Application.UseCases.User.Register;
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Response;
 using MyRecipeBook.Exceptions.ExceptionsBase;
 using System.Threading.Tasks;
 
+
 namespace MyRecipeBook.API.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [AuthenticatedUser]
     public class UserController : MyRecipeBookBaseController
     {
         [HttpPost]
