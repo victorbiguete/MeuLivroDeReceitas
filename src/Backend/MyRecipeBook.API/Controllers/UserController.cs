@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyRecipeBook.API.Attributes;
 using MyRecipeBook.Application.UseCases.User.Profile;
 using MyRecipeBook.Application.UseCases.User.Register;
+using MyRecipeBook.Application.UseCases.User.Update;
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Response;
 using MyRecipeBook.Exceptions.ExceptionsBase;
@@ -13,7 +14,7 @@ namespace MyRecipeBook.API.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [AuthenticatedUser]
+    
     public class UserController : MyRecipeBookBaseController
     {
         [HttpPost]
@@ -36,6 +37,15 @@ namespace MyRecipeBook.API.Controllers
             return Ok(result);
         }
 
-        
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+        [AuthenticatedUser]
+        public async Task<IActionResult> Update([FromServices] IUpdateUserUseCase useCase, [FromBody] RequestUpdateUserJson request)
+        {
+            await useCase.Execute(request);
+
+            return NoContent();
+        }
     }
 }

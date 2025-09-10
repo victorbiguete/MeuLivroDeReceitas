@@ -4,6 +4,7 @@ using MyRecipeBook.Application.Cryptography;
 using MyRecipeBook.Application.UseCases.Login.DoLogin;
 using MyRecipeBook.Application.UseCases.User.Profile;
 using MyRecipeBook.Application.UseCases.User.Register;
+using MyRecipeBook.Application.UseCases.User.Update;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,7 @@ namespace MyRecipeBook.Application
             services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
             services.AddScoped<IDoLoginUseCase,DoLoginUseCase>();
             services.AddScoped<IGetUserProfileUseCase,GetUserProfileUseCase>();
+            services.AddScoped<IUpdateUserUseCase,UpdateUserUseCase>();
         }
 
         private static void AddPasswordEncrypter(IServiceCollection services, IConfiguration configuration)
