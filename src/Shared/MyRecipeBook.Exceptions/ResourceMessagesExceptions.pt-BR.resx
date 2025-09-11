@@ -129,11 +129,17 @@
   <data name="EMAIL_OR_PASSWORD_INVALID" xml:space="preserve">
     <value>O Email ou a Senha estão Invalidos</value>
   </data>
+  <data name="INVALID_PASSWORD" xml:space="preserve">
+    <value>Senha Inválida</value>
+  </data>
   <data name="NAME_EMPTY" xml:space="preserve">
     <value>O Nome não pode estar Vazio</value>
   </data>
   <data name="NO_TOKEN" xml:space="preserve">
     <value>Nenhum Token foi encontrado</value>
+  </data>
+  <data name="PASSWORD_DIFFERENT_CURRENT_PASSWORD" xml:space="preserve">
+    <value>A senha é diferente da atual</value>
   </data>
   <data name="PASSWORD_EMPTY" xml:space="preserve">
     <value>A Senha não pode estar vazio</value>
