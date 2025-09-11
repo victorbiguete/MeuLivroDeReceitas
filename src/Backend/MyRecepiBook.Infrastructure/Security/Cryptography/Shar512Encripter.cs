@@ -1,17 +1,18 @@
-﻿using System;
+﻿using MyRecipeBook.Domain.Security.Cryptography;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyRecipeBook.Application.Cryptography
+namespace MyRecipeBook.Infrastructure.Security.Cryptography
 {
-    public class PasswordEncripter
+    public class Shar512Encripter : IPasswordEncripter
     {
         private readonly string _additionalKey;
 
-        public PasswordEncripter(string additionalKey)
+        public Shar512Encripter(string additionalKey)
         {
             _additionalKey = additionalKey;
         }
@@ -29,7 +30,7 @@ namespace MyRecipeBook.Application.Cryptography
         private static string StringBytes(byte[] bytes)
         {
             var sb = new StringBuilder();
-            foreach(byte b in bytes)
+            foreach (byte b in bytes)
             {
                 var hex = b.ToString("x2");
                 sb.Append(hex);

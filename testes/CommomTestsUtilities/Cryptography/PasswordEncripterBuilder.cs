@@ -1,4 +1,5 @@
-﻿using MyRecipeBook.Application.Cryptography;
+﻿using MyRecipeBook.Domain.Security.Cryptography;
+using MyRecipeBook.Infrastructure.Security.Cryptography;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ namespace CommomTestsUtilities.Cryptography
 {
     public static class PasswordEncripterBuilder
     {
-        public static PasswordEncripter Build()
+        public static IPasswordEncripter Build()
         {
-            return new PasswordEncripter("ABC1234");
+            return new Shar512Encripter("ABC1234");
         }
     }
 }
