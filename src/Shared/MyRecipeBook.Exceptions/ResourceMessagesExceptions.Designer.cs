@@ -133,7 +133,7 @@ namespace MyRecipeBook.Exceptions {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a The Passoword must be longer than 6 characters.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The Password must be longer than 6 characters.
         /// </summary>
         public static string PASSWORD_EMPTY {
             get {

@@ -142,7 +142,7 @@
     <value>A senha é diferente da atual</value>
   </data>
   <data name="PASSWORD_EMPTY" xml:space="preserve">
-    <value>A Senha não pode estar vazio</value>
+    <value>A Senha não pode estar vazia</value>
   </data>
   <data name="PASSWORD_MUST_BE_LONGER_THAN_6_CHARACTERS" xml:space="preserve">
     <value>A Senha deve ter mais que 6 caracteres</value>

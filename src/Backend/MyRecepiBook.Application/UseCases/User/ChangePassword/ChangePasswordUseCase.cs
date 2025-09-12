@@ -37,7 +37,7 @@ namespace MyRecipeBook.Application.UseCases.User.ChangePassword
 
             var user = await _userUpdateOnlyRepository.GetById(loggedUser.Id);
 
-            user.Password = _passwordEncripter.Encrypt(request.Password);
+            user.Password = _passwordEncripter.Encrypt(request.NewPassword);
 
             _userUpdateOnlyRepository.Update(user);
 
