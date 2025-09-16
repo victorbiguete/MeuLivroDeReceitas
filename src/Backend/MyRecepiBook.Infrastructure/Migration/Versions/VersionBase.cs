@@ -15,7 +15,8 @@ namespace MyRecipeBook.Infrastructure.Migration.Versions
             return Create.Table(table)
                 .WithColumn("Id").AsInt64().PrimaryKey().Identity()
                 .WithColumn("CreatedOn").AsDateTime().NotNullable()
-                .WithColumn("Active").AsBoolean().NotNullable();
+                .WithColumn("Active").AsBoolean().NotNullable()
+                ;
         }
     }
 }
