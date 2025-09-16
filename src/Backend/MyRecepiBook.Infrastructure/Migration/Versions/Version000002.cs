@@ -30,8 +30,6 @@ namespace MyRecipeBook.Infrastructure.Migration.Versions
             CreateTable("DishTypes")
                 .WithColumn("Type").AsInt32().NotNullable()
                 .WithColumn("RecipesId").AsInt64().NotNullable().ForeignKey("FK_DishType_Recipe_Id", "Recipes", "Id").OnDelete(System.Data.Rule.Cascade);
-
-
         }
     }
 }
