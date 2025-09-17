@@ -117,11 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AT_LEAST_ONE_INGREDIENT" xml:space="preserve">
+    <value>No Mínimo Um Ingrediente</value>
+  </data>
+  <data name="AT_LEAST_ONE_INSTRUCTION" xml:space="preserve">
+    <value>No Mínimo Uma Instrução</value>
+  </data>
   <data name="COOKING_TIME_NOT_SUPPORTED" xml:space="preserve">
     <value>Tempo de Cozimento Não Existente</value>
   </data>
   <data name="DIFFICULTY_LEVEL_NOT_SUPPORTED" xml:space="preserve">
     <value>Nível de Dificuldade Não Existente</value>
+  </data>
+  <data name="DISH_TYPE_NOT_SUPPORTED" xml:space="preserve">
+    <value>Tipo de Prato Não Existente</value>
   </data>
   <data name="EMAIL_ALREADY_REGISTERED" xml:space="preserve">
     <value>Esse Email já existe</value>
@@ -135,11 +144,23 @@
   <data name="EMAIL_OR_PASSWORD_INVALID" xml:space="preserve">
     <value>O Email ou a Senha estão Invalidos</value>
   </data>
+  <data name="INGREDIENT_EMPTY" xml:space="preserve">
+    <value>Ingrediente Vazio</value>
+  </data>
+  <data name="INSTRUCTION_EMPTY" xml:space="preserve">
+    <value>Instrução Vazia</value>
+  </data>
+  <data name="INSTRUCTION_EXCEEDS_LIMIT_CHARACTERS" xml:space="preserve">
+    <value>Limite de Caracteres Excedidos na Instrução</value>
+  </data>
   <data name="INVALID_PASSWORD" xml:space="preserve">
     <value>Senha Inválida</value>
   </data>
   <data name="NAME_EMPTY" xml:space="preserve">
     <value>O Nome não pode estar Vazio</value>
+  </data>
+  <data name="NON_NEGATIVE_INSTRUCTION_STEP" xml:space="preserve">
+    <value>Passo de Instrução não pode ser Negativo</value>
   </data>
   <data name="NO_TOKEN" xml:space="preserve">
     <value>Nenhum Token foi encontrado</value>
@@ -155,6 +176,9 @@
   </data>
   <data name="RECIPE_TITLE_EMPTY" xml:space="preserve">
     <value>Titulo da receita não pode ser vazio</value>
+  </data>
+  <data name="TWO_OR_MORE_INSTRUCTIONS_SAME_ORDER" xml:space="preserve">
+    <value>Duas ou Mais Instruções de Mesma Ordem</value>
   </data>
   <data name="UNKOWN_ERROR" xml:space="preserve">
     <value>Erro Desconhecido</value>

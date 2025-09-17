@@ -61,6 +61,24 @@ namespace MyRecipeBook.Exceptions {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a At Least One Ingredient.
+        /// </summary>
+        public static string AT_LEAST_ONE_INGREDIENT {
+            get {
+                return ResourceManager.GetString("AT_LEAST_ONE_INGREDIENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a At Least One Instruction.
+        /// </summary>
+        public static string AT_LEAST_ONE_INSTRUCTION {
+            get {
+                return ResourceManager.GetString("AT_LEAST_ONE_INSTRUCTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Cooking time not supported.
         /// </summary>
         public static string COOKING_TIME_NOT_SUPPORTED {
@@ -75,6 +93,15 @@ namespace MyRecipeBook.Exceptions {
         public static string DIFFICULTY_LEVEL_NOT_SUPPORTED {
             get {
                 return ResourceManager.GetString("DIFFICULTY_LEVEL_NOT_SUPPORTED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dish_Type_Not_Supported.
+        /// </summary>
+        public static string DISH_TYPE_NOT_SUPPORTED {
+            get {
+                return ResourceManager.GetString("DISH_TYPE_NOT_SUPPORTED", resourceCulture);
             }
         }
         
@@ -115,6 +142,33 @@ namespace MyRecipeBook.Exceptions {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Ingredient Empty.
+        /// </summary>
+        public static string INGREDIENT_EMPTY {
+            get {
+                return ResourceManager.GetString("INGREDIENT_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Instruction Empty.
+        /// </summary>
+        public static string INSTRUCTION_EMPTY {
+            get {
+                return ResourceManager.GetString("INSTRUCTION_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Instruction Exceeds Limit Characters.
+        /// </summary>
+        public static string INSTRUCTION_EXCEEDS_LIMIT_CHARACTERS {
+            get {
+                return ResourceManager.GetString("INSTRUCTION_EXCEEDS_LIMIT_CHARACTERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Invalid Password.
         /// </summary>
         public static string INVALID_PASSWORD {
@@ -138,6 +192,15 @@ namespace MyRecipeBook.Exceptions {
         public static string NO_TOKEN {
             get {
                 return ResourceManager.GetString("NO_TOKEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Non Negative Instruction Step.
+        /// </summary>
+        public static string NON_NEGATIVE_INSTRUCTION_STEP {
+            get {
+                return ResourceManager.GetString("NON_NEGATIVE_INSTRUCTION_STEP", resourceCulture);
             }
         }
         
@@ -174,6 +237,15 @@ namespace MyRecipeBook.Exceptions {
         public static string RECIPE_TITLE_EMPTY {
             get {
                 return ResourceManager.GetString("RECIPE_TITLE_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Two or More Instructions Same Order.
+        /// </summary>
+        public static string TWO_OR_MORE_INSTRUCTIONS_SAME_ORDER {
+            get {
+                return ResourceManager.GetString("TWO_OR_MORE_INSTRUCTIONS_SAME_ORDER", resourceCulture);
             }
         }
         
