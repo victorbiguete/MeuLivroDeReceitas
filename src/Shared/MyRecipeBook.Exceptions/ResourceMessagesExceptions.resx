@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="COOKING_TIME_NOT_SUPPORTED" xml:space="preserve">
+    <value>Cooking time not supported</value>
+  </data>
+  <data name="DIFFICULTY_LEVEL_NOT_SUPPORTED" xml:space="preserve">
+    <value>Difficulty Level Not Supported</value>
+  </data>
   <data name="EMAIL_ALREADY_REGISTERED" xml:space="preserve">
     <value>This Email already registered</value>
   </data>
@@ -146,6 +152,9 @@
   </data>
   <data name="PASSWORD_MUST_BE_LONGER_THAN_6_CHARACTERS" xml:space="preserve">
     <value>The Password must be longer than 6 characters</value>
+  </data>
+  <data name="RECIPE_TITLE_EMPTY" xml:space="preserve">
+    <value>Recipe title cannot be empty</value>
   </data>
   <data name="UNKOWN_ERROR" xml:space="preserve">
     <value>Erro Unkown</value>

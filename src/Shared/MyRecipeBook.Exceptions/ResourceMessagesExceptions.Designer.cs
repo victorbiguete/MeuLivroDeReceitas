@@ -61,6 +61,24 @@ namespace MyRecipeBook.Exceptions {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Cooking time not supported.
+        /// </summary>
+        public static string COOKING_TIME_NOT_SUPPORTED {
+            get {
+                return ResourceManager.GetString("COOKING_TIME_NOT_SUPPORTED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Difficulty Level Not Supported.
+        /// </summary>
+        public static string DIFFICULTY_LEVEL_NOT_SUPPORTED {
+            get {
+                return ResourceManager.GetString("DIFFICULTY_LEVEL_NOT_SUPPORTED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a This Email already registered.
         /// </summary>
         public static string EMAIL_ALREADY_REGISTERED {
@@ -147,6 +165,15 @@ namespace MyRecipeBook.Exceptions {
         public static string PASSWORD_MUST_BE_LONGER_THAN_6_CHARACTERS {
             get {
                 return ResourceManager.GetString("PASSWORD_MUST_BE_LONGER_THAN_6_CHARACTERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Recipe title cannot be empty.
+        /// </summary>
+        public static string RECIPE_TITLE_EMPTY {
+            get {
+                return ResourceManager.GetString("RECIPE_TITLE_EMPTY", resourceCulture);
             }
         }
         
