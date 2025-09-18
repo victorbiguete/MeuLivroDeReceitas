@@ -1,12 +1,8 @@
 ﻿using CommomTestsUtilities.Requests;
 using FluentAssertions;
 using MyRecipeBook.Application.UseCases.Recipe;
+using MyRecipeBook.Communication.Enum;
 using MyRecipeBook.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UserCases.Test.Recipe
 {
@@ -93,6 +89,115 @@ namespace UserCases.Test.Recipe
             var result = validator.Validate(request);
 
             result.IsValid.Should().BeTrue();
+        }
+
+        [Fact]
+        public void Success_DishType_Empty()
+        {
+            var request = RequestRecipeJsonBuilder.Build();
+
+            request.DishTypes.Clear();
+
+            var validator = new RecipeValidator();
+            var result = validator.Validate(request);
+
+            result.IsValid.Should().BeTrue();
+        }
+
+        [Fact]
+        public void Error_Invalid_DishType()
+        {
+            var request = RequestRecipeJsonBuilder.Build();
+            request.DishTypes.Add((DishType)1000);
+
+            var validator = new RecipeValidator();
+            var result = validator.Validate(request);
+
+            result.IsValid.Should().BeFalse();
+            result.Errors.Should().ContainSingle().And.Contain(e => e.ErrorMessage.Equals(ResourceMessagesExceptions.DISH_TYPE_NOT_SUPPORTED));
+        }
+
+        [Fact]
+        public void Error_Empty_Ingredients()
+        {
+            var request = RequestRecipeJsonBuilder.Build();
+            request.Ingredients.Clear();
+
+            var validator = new RecipeValidator();
+            var result = validator.Validate(request);
+
+            result.IsValid.Should().BeFalse();
+            result.Errors.Should().ContainSingle().And.Contain(e => e.ErrorMessage.Equals(ResourceMessagesExceptions.AT_LEAST_ONE_INGREDIENT));
+        }
+        [Fact]
+        public void Error_Empty_Instructions()
+        {
+            var request = RequestRecipeJsonBuilder.Build();
+            request.Instruction.Clear();
+
+            var validator = new RecipeValidator();
+            var result = validator.Validate(request);
+
+            result.IsValid.Should().BeFalse();
+            result.Errors.Should().ContainSingle().And.Contain(e => e.ErrorMessage.Equals(ResourceMessagesExceptions.AT_LEAST_ONE_INSTRUCTION));
+        }
+
+        [Theory]
+        [InlineData("    ")]
+        [InlineData("")]
+        [InlineData(null)]
+        public void Error_Empty_Value_Ingredients(string ingredient)
+        {
+            var request = RequestRecipeJsonBuilder.Build();
+            request.Ingredients.Add(ingredient);
+
+            var validator = new RecipeValidator();
+            var result = validator.Validate(request);
+
+            result.IsValid.Should().BeFalse();
+            result.Errors.Should().ContainSingle().And.Contain(e => e.ErrorMessage.Equals(ResourceMessagesExceptions.INGREDIENT_EMPTY));
+        }
+
+        [Fact]
+        public void Error_Same_Step_Instructions()
+        {
+            var request = RequestRecipeJsonBuilder.Build();
+            request.Instruction.First().Step = request.Instruction.Last().Step;
+
+            var validator = new RecipeValidator();
+            var result = validator.Validate(request);
+
+            result.IsValid.Should().BeFalse();
+            result.Errors.Should().ContainSingle().And.Contain(e => e.ErrorMessage.Equals(ResourceMessagesExceptions.TWO_OR_MORE_INSTRUCTIONS_SAME_ORDER));
+        }
+
+        [Fact]
+        public void Error_Negative_Step_Instructions()
+        {
+            var request = RequestRecipeJsonBuilder.Build();
+            request.Instruction.First().Step = -1;
+
+            var validator = new RecipeValidator();
+            var result = validator.Validate(request);
+
+            result.IsValid.Should().BeFalse();
+            result.Errors.Should().ContainSingle().And.Contain(e => e.ErrorMessage.Equals(ResourceMessagesExceptions.NON_NEGATIVE_INSTRUCTION_STEP));
+        }
+
+        [Theory]
+        [InlineData("    ")]
+        [InlineData("")]
+        [InlineData(null)]
+        public void Error_Empty_Value_Instructions(string instruction)
+        {
+            var request = RequestRecipeJsonBuilder.Build();
+            request.Instruction.First().Text = (instruction);
+
+            var validator = new RecipeValidator();
+            var result = validator.Validate(request);
+
+            result.IsValid.Should().BeFalse();
+            result.Errors.Should().ContainSingle().And.Contain(e => e.ErrorMessage.Equals(ResourceMessagesExceptions.INSTRUCTION_EMPTY));
         }
     }
 }
