@@ -12,6 +12,7 @@ namespace MyRecipeBook.Domain.Entities
     {
         public int Step { get; set; }
         public string Text { get; set; } = string.Empty;
+        [Column("RecipesId")]
         public long RecipeId { get; set; }
     }
 }

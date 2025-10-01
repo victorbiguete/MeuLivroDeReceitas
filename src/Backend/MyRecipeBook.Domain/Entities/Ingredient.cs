@@ -11,6 +11,7 @@ namespace MyRecipeBook.Domain.Entities
     public class Ingredient : EntitieBase
     {
         public string Item { get; set; }
+        [Column("RecipesId")]
         public long RecipeId { get; set; }
     }
 }
