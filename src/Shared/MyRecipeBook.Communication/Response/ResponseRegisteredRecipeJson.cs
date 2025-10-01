@@ -8,6 +8,7 @@ namespace MyRecipeBook.Communication.Response
 {
     public record ResponseRegisteredRecipeJson
     {
-        public long Id { get; set; }
+        public string Id { get; set; }
+        public string Title { get; set; }
     }
 }

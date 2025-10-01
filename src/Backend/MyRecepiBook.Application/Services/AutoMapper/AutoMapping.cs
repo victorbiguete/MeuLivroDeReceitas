@@ -3,13 +3,16 @@ using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Response;
 using MyRecipeBook.Domain.Entities;
 using MyRecipeBook.Domain.Enum;
+using Sqids;
 
 namespace MyRecipeBook.Application.Services.AutoMapper
 {
     public class AutoMapping : Profile
     {
-        public AutoMapping()
+        private readonly SqidsEncoder<long> _idEncoder;
+        public AutoMapping(SqidsEncoder<long> idEnconder)
         {
+            _idEncoder = idEnconder;
             RequestToDomain();
             DomainToResponse();
         }
@@ -35,6 +38,8 @@ namespace MyRecipeBook.Application.Services.AutoMapper
         private void DomainToResponse()
         {
             CreateMap<User, ResponseUserProfileJson>();
+            CreateMap<Recipe, ResponseRegisteredRecipeJson>()
+                .ForMember(dest => dest.Id, config => config.MapFrom(source => _idEncoder.Encode(source.Id)));
         }
     }
 }

@@ -7,6 +7,7 @@ using MyRecipeBook.Application.UseCases.User.ChangePassword;
 using MyRecipeBook.Application.UseCases.User.Profile;
 using MyRecipeBook.Application.UseCases.User.Register;
 using MyRecipeBook.Application.UseCases.User.Update;
+using Sqids;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace MyRecipeBook.Application
         public static void AddApplication(this IServiceCollection services, IConfiguration configuration)
         {
             AddUseCases(services);
-            AddAutoMapper(services);
+            AddAutoMapper(services, configuration);
             
         }
 
@@ -35,11 +36,16 @@ namespace MyRecipeBook.Application
         }
 
 
-        private static void AddAutoMapper(IServiceCollection services)
+        private static void AddAutoMapper(IServiceCollection services, IConfiguration configuration)
         {
+            var sqids = new SqidsEncoder<long>(new()
+            {
+                MinLength = 1,
+                Alphabet = configuration.GetValue<string>("Settings:IdCryptographyAlphabet")!
+            });
             services.AddScoped(option => new AutoMapper.MapperConfiguration(options =>
             {
-                options.AddProfile(new Services.AutoMapper.AutoMapping());
+                options.AddProfile(new Services.AutoMapper.AutoMapping(sqids));
             }).CreateMapper());
         }
     }
