@@ -38,7 +38,7 @@ namespace WebApi.Test.User.ChangePassword
 
             var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
 
-            var response = await DoPut(METHOD,request,token);
+            var response = await DoPut(method: METHOD,request: request,token: token);
 
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.NoContent);
 

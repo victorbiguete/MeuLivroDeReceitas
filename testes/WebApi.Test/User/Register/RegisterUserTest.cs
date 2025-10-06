@@ -22,7 +22,7 @@ namespace WebApi.Test.User.Register
         {
             var request = RequestRegisterUserJsonBuilder.Build();
 
-            var response = await DoPost(method, request);
+            var response = await DoPost(method: method,request: request);
 
             var responseContent = await response.Content.ReadAsStringAsync();
             Console.WriteLine(responseContent);
@@ -50,7 +50,7 @@ namespace WebApi.Test.User.Register
 
             request.Name = string.Empty;
 
-            var response = await DoPost(method, request,culture);
+            var response = await DoPost(method: method,request: request,culture: culture);
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
