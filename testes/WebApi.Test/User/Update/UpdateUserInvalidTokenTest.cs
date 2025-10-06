@@ -28,7 +28,7 @@ namespace WebApi.Test.User.Update
         }
 
         [Fact]
-        public async Task Error_Whitout_Token()
+        public async Task Error_Without_Token()
         {
             var request = RequestUpdateUserJsonBuilder.Build();
 

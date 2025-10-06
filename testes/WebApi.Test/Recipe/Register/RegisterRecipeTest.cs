@@ -51,7 +51,7 @@ namespace WebApi.Test.Recipe.Register
 
             var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
 
-            var response = await DoPost(method: METHOD,request: request,token: token, culture: culture);
+            var response = await DoPost(method: METHOD, request: request, token: token, culture: culture);
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
@@ -64,6 +64,38 @@ namespace WebApi.Test.Recipe.Register
             var expectedMessage = ResourceMessagesExceptions.ResourceManager.GetString("RECIPE_TITLE_EMPTY", new System.Globalization.CultureInfo(culture));
 
             errors.Should().HaveCount(1).And.Contain(c => c.GetString()!.Equals(expectedMessage));
+        }
+
+        [Fact]
+        public async Task Error_Token_invalid()
+        {
+            var request = RequestRecipeJsonBuilder.Build();
+
+            var response = await DoPost(method: METHOD, request: request, token: "TokenInvalid");
+
+            response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+        }
+
+        [Fact]
+        public async Task Error_Without_Token()
+        {
+            var request = RequestRecipeJsonBuilder.Build();
+
+            var response = await DoPost(method: METHOD, request: request, token: string.Empty);
+
+            response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+        }
+
+        [Fact]
+        public async Task Error_Token_With_User_NotFound()
+        {
+            var request = RequestRecipeJsonBuilder.Build();
+
+            var token = JwtTokenGeneratorBuilder.Build().Generate(Guid.NewGuid());
+
+            var response = await DoPost(method: METHOD, request: request, token: token);
+
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.Unauthorized);
         }
     }
 }
