@@ -40,6 +40,9 @@ namespace MyRecipeBook.Application.Services.AutoMapper
             CreateMap<User, ResponseUserProfileJson>();
             CreateMap<Recipe, ResponseRegisteredRecipeJson>()
                 .ForMember(dest => dest.Id, config => config.MapFrom(source => _idEncoder.Encode(source.Id)));
+            CreateMap<Recipe, ResponseShortRecipeJson>()
+                .ForMember(dest => dest.Id, config => config.MapFrom(source => _idEncoder.Encode(source.Id)))
+                .ForMember(dest => dest.AmountIngredients, config => config.MapFrom(source => source.Ingredients.Count));
         }
     }
 }

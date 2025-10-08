@@ -1,7 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Options;
+using MyRecipeBook.Communication.Enum;
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Response;
+using MyRecipeBook.Domain.Dtos;
+using MyRecipeBook.Domain.Enum;
+using MyRecipeBook.Domain.Repositories.Recipe;
 using MyRecipeBook.Domain.Services.LoggedUser;
 using MyRecipeBook.Exceptions.ExceptionsBase;
 using System;
@@ -16,11 +20,13 @@ namespace MyRecipeBook.Application.UseCases.Recipe.Filter
     {
         private readonly IMapper _mapper;
         private readonly ILoggedUser _loggedUser;
+        private readonly IRecipeReadOnlyRepository _repository;
 
-        public FilterRecipeUseCase(IMapper mapper, ILoggedUser loggedUser)
+        public FilterRecipeUseCase(IMapper mapper, ILoggedUser loggedUser, IRecipeReadOnlyRepository repository)
         {
             _mapper = mapper;
             _loggedUser = loggedUser;
+            _repository = repository;
         }
 
         public async Task<ResponseRecipesJson> Execute(RequestFilterRecipeJson request)
@@ -29,9 +35,18 @@ namespace MyRecipeBook.Application.UseCases.Recipe.Filter
 
             var loggedUser = await _loggedUser.User();
 
+            var filters = new FilterRecipesDto{
+                RecipeTitle_Ingredient = request.RecipeTitle_Ingredient,
+                CookingTimes = request.CookingTime.Distinct().Select(c => (Domain.Enum.CookingTime)c).ToList(),
+                Difficulties = request.Difficulties.Distinct().Select(d => (Domain.Enum.Difficulty)d).ToList(),
+                DishTypes = request.DishTypes.Distinct().Select(dt => (Domain.Enum.DishType)dt).ToList(),
+            };
+
+            var recipes = await _repository.Filter(loggedUser, filters); 
+
             return new ResponseRecipesJson
             {
-                Recipes = []
+                Recipes = _mapper.Map<List<ResponseShortRecipeJson>>(recipes)
             };
         }
 
