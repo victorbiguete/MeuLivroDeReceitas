@@ -25,7 +25,7 @@ namespace MyRecipeBook.Application.UseCases.Recipe.GetById
             _repository = repository;
         }
 
-        public async Task<ResponseRecipesJson> Execute(long recipeID)
+        public async Task<ResponseRecipeJson> Execute(long recipeID)
         {
             var loggedUser = await _loggedUser.User();
 
@@ -35,7 +35,7 @@ namespace MyRecipeBook.Application.UseCases.Recipe.GetById
             {
                 throw new NotFoundException(ResourceMessagesExceptions.RECIPE_NOT_FOUND);
             }
-            return _mapper.Map<ResponseRecipesJson>(recipe);
+            return _mapper.Map<ResponseRecipeJson>(recipe);
         }
     }
 }

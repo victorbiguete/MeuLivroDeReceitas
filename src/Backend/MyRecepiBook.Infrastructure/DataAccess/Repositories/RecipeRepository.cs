@@ -38,7 +38,7 @@ namespace MyRecipeBook.Infrastructure.DataAccess.Repositories
                 query = query.Where(recipe => recipe.DishTypes.Any(dishtype => filters.DishTypes.Contains(dishtype.Type)));
             }
 
-            if(filters.RecipeTitle_Ingredient != string.Empty)
+            if(filters.RecipeTitle_Ingredient != null)
             {
                 query = query.Where(recipes => recipes.Title.Contains(filters.RecipeTitle_Ingredient) || recipes.Ingredients.Any(ingredient => ingredient.Item.Contains(filters.RecipeTitle_Ingredient)));
             }
