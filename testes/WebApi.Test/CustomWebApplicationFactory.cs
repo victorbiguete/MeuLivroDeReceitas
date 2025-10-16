@@ -1,4 +1,5 @@
 ﻿using CommomTestsUtilities.Entities;
+using CommomTestsUtilities.IdEncryption;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -54,6 +55,7 @@ namespace WebApi.Test
         public string GetName() => _user.Name;
 
         public string GetRecipeTitle() => _recipe.Title;
+        public string GetRecipeId() => IdEncripterBuilder.Build().Encode(_recipe.Id);
         public CookingTime GetRecipeCookingTime() => _recipe.CookingTime!.Value;
         public Difficulty GetRecipeDifficulty() => _recipe.Difficulty!.Value;
         public IList<DishType> GetDishType() => _recipe.DishTypes.Select(c => c.Type).ToList();
