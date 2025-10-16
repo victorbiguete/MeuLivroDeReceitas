@@ -55,7 +55,7 @@ namespace MyRecipeBook.Application
         {
             var sqids = new SqidsEncoder<long>(new()
             {
-                MinLength = 1,
+                MinLength = 3,
                 Alphabet = configuration.GetValue<string>("Settings:IdCryptographyAlphabet")!
             });
 
