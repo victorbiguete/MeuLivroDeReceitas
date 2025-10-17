@@ -21,6 +21,13 @@ namespace MyRecipeBook.Infrastructure.DataAccess.Repositories
 
         public async Task Add(Recipe recipe) => await _context.Recipes.AddAsync(recipe);
 
+        public async Task Delete(long id)
+        {
+            var recipes = await _context.Recipes.FindAsync(id);
+
+            _context.Recipes.Remove(recipes!);
+        }
+
         public async Task<IList<Recipe>> Filter(User user, FilterRecipesDto filters)
         {
             var query = _context.Recipes.AsNoTracking().Include(recipe => recipe.Ingredients).Where(recipe => recipe.Active && recipe.UserId == user.Id);
