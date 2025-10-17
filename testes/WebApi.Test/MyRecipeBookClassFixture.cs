@@ -22,6 +22,12 @@ namespace WebApi.Test
             AuthorizeRequest(token);
             return await _httpClient.PostAsJsonAsync(method, request);
         }
+        protected async Task<HttpResponseMessage> DoDelete(string method, string token="", string culture = "pt-BR")
+        {
+            ChangeRequestCulture(culture);
+            AuthorizeRequest(token);
+            return await _httpClient.DeleteAsync(method);
+        }
 
         protected async Task<HttpResponseMessage> DoGet(string method, string token = "", string culture = "pt-BR")
         {
@@ -36,6 +42,9 @@ namespace WebApi.Test
             AuthorizeRequest(token);
             return await _httpClient.PutAsJsonAsync(method, request);
         }
+        
+
+
 
         private void ChangeRequestCulture(string culture)
         {
