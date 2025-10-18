@@ -59,5 +59,16 @@ namespace MyRecipeBook.API.Controllers
 
             return NoContent();
         }
+
+        [HttpPut]
+        [Route("{id}")]
+        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> Update([FromServices] IUpdateRecipeUseCase useCase, [FromRoute][ModelBinder(typeof(MyRecipeBookIdBinder))] long id, [FromBody] RequestRecipeJson request)
+        {
+            await useCase.Execute(id, request);
+
+            return NoContent();
+        }
     }
 }
