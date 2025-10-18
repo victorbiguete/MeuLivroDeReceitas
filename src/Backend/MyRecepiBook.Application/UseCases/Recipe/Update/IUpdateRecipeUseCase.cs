@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyRecipeBook.Application.UseCases.Recipe.Update
 {
-    internal interface IUpdateRecipeUseCase
+    public interface IUpdateRecipeUseCase
     {
         public Task Execute(long recipeId, RequestRecipeJson request);
     }
