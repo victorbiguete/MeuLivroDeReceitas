@@ -78,5 +78,16 @@ namespace MyRecipeBook.Infrastructure.DataAccess.Repositories
                 .Include(r => r.DishTypes)
                 .Include(r => r.Instructions);
         }
+
+        public async Task<IList<Recipe>> GetForDashboard(User user)
+        {
+            return await _context.Recipes
+                .AsNoTracking()
+                .Include(c => c.Ingredients)
+                .Where(r => r.Active && r.UserId == user.Id)
+                .OrderByDescending(r => r.CreatedOn)
+                .Take(5)
+                .ToListAsync();
+        }
     }
 }
