@@ -57,7 +57,7 @@ namespace MyRecipeBook.Application.UseCases.User.Register
         {
             var validator = new RegisterUserValidator();
 
-            var result = validator.Validate(request);
+            var result = await validator.ValidateAsync(request);
 
             var emailExist = await _readOnlyRepository.ExistActiveUserWithEmail(request.Email);
 

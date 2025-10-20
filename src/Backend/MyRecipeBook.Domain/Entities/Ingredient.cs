@@ -10,7 +10,7 @@ namespace MyRecipeBook.Domain.Entities
     [Table("Ingredients")]
     public class Ingredient : EntitieBase
     {
-        public string Item { get; set; }
+        public string Item { get; set; } = string.Empty;
         [Column("RecipesId")]
         public long RecipeId { get; set; }
     }
