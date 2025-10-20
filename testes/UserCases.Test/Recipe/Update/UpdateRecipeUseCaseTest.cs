@@ -52,14 +52,14 @@ namespace UserCases.Test.Recipe.Update
             (var user, _) = UserBuilder.Build();
             var recipe = RecipeBuilder.Build(user);
             var request = RequestRecipeJsonBuilder.Build();
-            request.Title =string.Empty;
+            request.Title = string.Empty;
 
             var useCase = CreateUseCase(user);
 
             Func<Task> act = async () => await useCase.Execute(recipe.Id, request);
 
-            (await act.Should().ThrowAsync<NotFoundException>())
-                .Where(error => error.Message.Equals(ResourceMessagesExceptions.RECIPE_TITLE_EMPTY));
+            (await act.Should().ThrowAsync<ErrorOnValidationException>())
+                .Where(error => error.ErrorsMessages.Count == 1 && error.ErrorsMessages.Contains(ResourceMessagesExceptions.RECIPE_TITLE_EMPTY));
         }
 
         private static UpdateRecipeUseCase CreateUseCase(MyRecipeBook.Domain.Entities.User user, MyRecipeBook.Domain.Entities.Recipe? recipe = null)
