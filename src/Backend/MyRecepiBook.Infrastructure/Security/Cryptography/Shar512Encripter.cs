@@ -19,8 +19,6 @@ namespace MyRecipeBook.Infrastructure.Security.Cryptography
 
         public string Encrypt(string password)
         {
-            var newPassword = $"{password}{_additionalKey}";
-
             var bytes = Encoding.UTF8.GetBytes(password);
             var hashByte = SHA512.HashData(bytes);
 

@@ -18,9 +18,9 @@ namespace MyRecipeBook.Application.UseCases.Recipe
     public class RegisterRecipeUseCase : IRegisterRecipeUseCase
     {
         private readonly ILoggedUser _loggedUser;
-        private IRecipeWriteOnlyRepository _repository;
-        private IUnitOfWork _unitOfWork;
-        private IMapper _mapper;
+        private readonly IRecipeWriteOnlyRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
         public RegisterRecipeUseCase(ILoggedUser loggedUser, IRecipeWriteOnlyRepository repository, IUnitOfWork unitOfWork, IMapper mapper)
         {
@@ -30,19 +30,19 @@ namespace MyRecipeBook.Application.UseCases.Recipe
             _mapper = mapper;
         }
 
-        public async Task<ResponseRegisteredRecipeJson> Execute(RequestRecipeJson request)
+        public async Task<ResponseRegisteredRecipeJson> Execute(RequestRecipeJson requestRecipeJson)
         {
-            Validate(request);
+            Validate(requestRecipeJson);
 
             var loggedUser = await _loggedUser.User();
 
-            var recipe = _mapper.Map<Domain.Entities.Recipe>(request);
+            var recipe = _mapper.Map<Domain.Entities.Recipe>(requestRecipeJson);
             recipe.UserId = loggedUser.Id;
 
-            var instructions = request.Instruction.OrderBy(i => i.Step).ToList();
+            var instructions = requestRecipeJson.Instruction.OrderBy(i => i.Step).ToList();
             for(var index = 0; index< instructions.Count; index++)
             {
-                instructions.ElementAt(index).Step = index + 1;
+                instructions[index].Step = index + 1;
             }
 
             recipe.Instructions = _mapper.Map<IList<Domain.Entities.Instruction>>(instructions);

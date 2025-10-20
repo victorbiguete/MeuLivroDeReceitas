@@ -20,7 +20,7 @@ namespace MyRecipeBook.API.Filter
 
         private static void HandleProjectException(ExceptionContext context)
         {
-            if(context.Exception is InvalidLoginException)
+            if (context.Exception is InvalidLoginException)
             {
                 context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                 context.Result = new UnauthorizedObjectResult(new ResponseErrorJson(context.Exception.Message));

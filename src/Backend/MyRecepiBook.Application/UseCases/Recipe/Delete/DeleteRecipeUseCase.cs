@@ -27,16 +27,16 @@ namespace MyRecipeBook.Application.UseCases.Recipe.Delete
             _unitOfWork = unitOfWork;
         }
 
-        public async Task Execute(long recipeId)
+        public async Task Execute(long id)
         {
             var loggedUser = await _loggedUser.User();
 
-            var recipe = await _repositoryRead.GetById(loggedUser, recipeId);
+            var recipe = await _repositoryRead.GetById(loggedUser, id);
 
             if (recipe is null)
                 throw new NotFoundException(ResourceMessagesExceptions.RECIPE_NOT_FOUND);
 
-            await _repositoryWrite.Delete(recipeId);
+            await _repositoryWrite.Delete(id);
 
             await _unitOfWork.Commit();
         }

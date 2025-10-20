@@ -28,9 +28,9 @@ namespace MyRecipeBook.Application.UseCases.Recipe.Update
             _mapper = mapper;
         }
 
-        public async Task Execute(long recipeId, RequestRecipeJson request)
+        public async Task Execute(long recipeId, RequestRecipeJson requestRecipeJson)
         {
-            Validate(request);
+            Validate(requestRecipeJson);
 
             var loggedUser = await _loggedUser.User();
 
@@ -43,13 +43,13 @@ namespace MyRecipeBook.Application.UseCases.Recipe.Update
             recipe.Instructions.Clear();
             recipe.DishTypes.Clear();
 
-            _mapper.Map(request, recipe);
+            _mapper.Map(requestRecipeJson, recipe);
 
-            var instructions = request.Instruction.OrderBy(i => i.Step).ToList();
+            var instructions = requestRecipeJson.Instruction.OrderBy(i => i.Step).ToList();
 
             for(var index = 0;index < instructions.Count;index++)
             {
-                instructions.ElementAt(index).Step = index + 1;
+                instructions[index].Step = index + 1;
             }
 
             recipe.Instructions = _mapper.Map<IList<Domain.Entities.Instruction>>(instructions);    

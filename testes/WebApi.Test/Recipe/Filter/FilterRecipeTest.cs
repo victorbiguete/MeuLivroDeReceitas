@@ -82,7 +82,7 @@ namespace WebApi.Test.Recipe.Filter
 
             var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
 
-            var response = await DoPost(METHOD, request: request, token: token);
+            var response = await DoPost(METHOD, request: request, token: token, culture);
 
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
         }
