@@ -5,6 +5,7 @@ using MyRecipeBook.API.Binders;
 using MyRecipeBook.Application.UseCases.Recipe;
 using MyRecipeBook.Application.UseCases.Recipe.Delete;
 using MyRecipeBook.Application.UseCases.Recipe.Filter;
+using MyRecipeBook.Application.UseCases.Recipe.GenerateRecipe;
 using MyRecipeBook.Application.UseCases.Recipe.GetById;
 using MyRecipeBook.Application.UseCases.Recipe.Update;
 using MyRecipeBook.Communication.Requests;
@@ -70,6 +71,16 @@ namespace MyRecipeBook.API.Controllers
             await useCase.Execute(id, request);
 
             return NoContent();
+        }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(RequestGenerateRecipeJson), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseErrorJson),StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Generate([FromServices] IGenerateRecipeUseCase useCase, [FromBody] RequestGenerateRecipeJson request)
+        {
+            var response = await useCase.Execute(request);
+
+            return Ok(response);
         }
     }
 }

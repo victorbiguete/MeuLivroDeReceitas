@@ -106,6 +106,15 @@ namespace MyRecipeBook.Exceptions {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Duplicated Ingredients In List.
+        /// </summary>
+        public static string DUPLICATED_INGREDIENTS_IN_LIST {
+            get {
+                return ResourceManager.GetString("DUPLICATED_INGREDIENTS_IN_LIST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a This Email already registered.
         /// </summary>
         public static string EMAIL_ALREADY_REGISTERED {
@@ -151,6 +160,15 @@ namespace MyRecipeBook.Exceptions {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Ingredient Not Following Pattern.
+        /// </summary>
+        public static string INGREDIENT_NOT_FOLLOWING_PATTERN {
+            get {
+                return ResourceManager.GetString("INGREDIENT_NOT_FOLLOWING_PATTERN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Instruction Empty.
         /// </summary>
         public static string INSTRUCTION_EMPTY {
@@ -165,6 +183,15 @@ namespace MyRecipeBook.Exceptions {
         public static string INSTRUCTION_EXCEEDS_LIMIT_CHARACTERS {
             get {
                 return ResourceManager.GetString("INSTRUCTION_EXCEEDS_LIMIT_CHARACTERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Invalid Number Ingredients.
+        /// </summary>
+        public static string INVALID_NUMBER_INGREDIENTS {
+            get {
+                return ResourceManager.GetString("INVALID_NUMBER_INGREDIENTS", resourceCulture);
             }
         }
         

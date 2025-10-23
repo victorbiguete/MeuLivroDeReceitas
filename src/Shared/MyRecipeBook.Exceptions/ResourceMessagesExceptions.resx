@@ -132,6 +132,9 @@
   <data name="DISH_TYPE_NOT_SUPPORTED" xml:space="preserve">
     <value>Dish_Type_Not_Supported</value>
   </data>
+  <data name="DUPLICATED_INGREDIENTS_IN_LIST" xml:space="preserve">
+    <value>Duplicated Ingredients In List</value>
+  </data>
   <data name="EMAIL_ALREADY_REGISTERED" xml:space="preserve">
     <value>This Email already registered</value>
   </data>
@@ -147,11 +150,17 @@
   <data name="INGREDIENT_EMPTY" xml:space="preserve">
     <value>Ingredient Empty</value>
   </data>
+  <data name="INGREDIENT_NOT_FOLLOWING_PATTERN" xml:space="preserve">
+    <value>Ingredient Not Following Pattern</value>
+  </data>
   <data name="INSTRUCTION_EMPTY" xml:space="preserve">
     <value>Instruction Empty</value>
   </data>
   <data name="INSTRUCTION_EXCEEDS_LIMIT_CHARACTERS" xml:space="preserve">
     <value>Instruction Exceeds Limit Characters</value>
+  </data>
+  <data name="INVALID_NUMBER_INGREDIENTS" xml:space="preserve">
+    <value>Invalid Number Ingredients</value>
   </data>
   <data name="INVALID_PASSWORD" xml:space="preserve">
     <value>Invalid Password</value>

@@ -132,6 +132,9 @@
   <data name="DISH_TYPE_NOT_SUPPORTED" xml:space="preserve">
     <value>Tipo de Prato Não Existente</value>
   </data>
+  <data name="DUPLICATED_INGREDIENTS_IN_LIST" xml:space="preserve">
+    <value>Lista de Ingredientes Duplicados</value>
+  </data>
   <data name="EMAIL_ALREADY_REGISTERED" xml:space="preserve">
     <value>Esse Email já existe</value>
   </data>
@@ -147,11 +150,17 @@
   <data name="INGREDIENT_EMPTY" xml:space="preserve">
     <value>Ingrediente Vazio</value>
   </data>
+  <data name="INGREDIENT_NOT_FOLLOWING_PATTERN" xml:space="preserve">
+    <value>Ingrediente Não Segue Os Padrões</value>
+  </data>
   <data name="INSTRUCTION_EMPTY" xml:space="preserve">
     <value>Instrução Vazia</value>
   </data>
   <data name="INSTRUCTION_EXCEEDS_LIMIT_CHARACTERS" xml:space="preserve">
     <value>Limite de Caracteres Excedidos na Instrução</value>
+  </data>
+  <data name="INVALID_NUMBER_INGREDIENTS" xml:space="preserve">
+    <value>Numero de Ingredientes Invalido</value>
   </data>
   <data name="INVALID_PASSWORD" xml:space="preserve">
     <value>Senha Inválida</value>
