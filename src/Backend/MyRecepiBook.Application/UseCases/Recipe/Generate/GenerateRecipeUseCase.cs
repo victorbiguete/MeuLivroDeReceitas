@@ -18,11 +18,11 @@ namespace MyRecipeBook.Application.UseCases.Recipe.GenerateRecipe
             _generator = generator;
         }
 
-        public Task<ResponseGenerateRecipeJson> Execute(RequestGenerateRecipeJson request)
+        public async Task<ResponseGenerateRecipeJson> Execute(RequestGenerateRecipeJson request)
         {
             Validate(request);
 
-            var response = _generator.Execute(request.Ingredients);
+            var response = await _generator.Generate(request.Ingredients);
 
             return new ResponseGenerateRecipeJson
             {
