@@ -193,3 +193,4 @@ FakesAssemblies/
 
 /.sonarqube
 coverage.opencover.xml
+/src/Backend/MyRecipeBook.API/appsettings.Development.json

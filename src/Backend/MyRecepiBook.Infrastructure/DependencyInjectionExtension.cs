@@ -1,5 +1,6 @@
 ﻿using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyRecipeBook.Domain.Repositories;
@@ -8,6 +9,8 @@ using MyRecipeBook.Domain.Repositories.User;
 using MyRecipeBook.Domain.Security.Cryptography;
 using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Domain.Services.LoggedUser;
+using MyRecipeBook.Domain.Services.OpenaAI;
+using MyRecipeBook.Domain.ValueObjects;
 using MyRecipeBook.Infrastructure.DataAccess;
 using MyRecipeBook.Infrastructure.DataAccess.Repositories;
 using MyRecipeBook.Infrastructure.Extensions;
@@ -15,6 +18,8 @@ using MyRecipeBook.Infrastructure.Security.Cryptography;
 using MyRecipeBook.Infrastructure.Security.Tokens.Access.Generator;
 using MyRecipeBook.Infrastructure.Security.Tokens.Access.Validator;
 using MyRecipeBook.Infrastructure.Services.LoggedUser;
+using MyRecipeBook.Infrastructure.Services.OpenAI;
+using OpenAI.Chat;
 using System.Reflection;
 
 namespace MyRecipeBook.Infrastructure
@@ -81,6 +86,15 @@ namespace MyRecipeBook.Infrastructure
         {
             var additionalKey = configuration.GetValue<string>("Settings:Password:AdditionalKey");
             services.AddScoped<IPasswordEncripter>(option => new Shar512Encripter(additionalKey!));
+        }
+
+        private static void AddOpenAi(IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddScoped<IGenerateRecipeAI, ChatGPTService>();
+
+            var key = configuration.GetValue<string>("Settings:OpenAi:ApiKey");
+
+            services.AddScoped(c => new ChatClient(MyRecipeBookRuleConstants.CHAT_MODEL, apiKey));
         }
     }
 }

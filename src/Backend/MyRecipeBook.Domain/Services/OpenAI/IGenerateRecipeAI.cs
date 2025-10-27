@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyRecipeBook.Domain.Services.OpenaAI
+namespace MyRecipeBook.Domain.Services.OpenAI
 {
     public interface IGenerateRecipeAI
     {

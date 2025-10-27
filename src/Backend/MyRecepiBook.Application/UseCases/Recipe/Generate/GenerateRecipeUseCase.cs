@@ -1,6 +1,6 @@
 ﻿using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Response;
-using MyRecipeBook.Domain.Services.OpenaAI;
+using MyRecipeBook.Domain.Services.OpenAI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
