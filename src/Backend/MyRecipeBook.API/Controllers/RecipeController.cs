@@ -16,7 +16,7 @@ namespace MyRecipeBook.API.Controllers
     [AuthenticatedUser]
     public class RecipeController : MyRecipeBookBaseController
     {
-        [HttpPost]
+        [HttpPost("register")]
         [ProducesResponseType(typeof(ResponseRegisteredRecipeJson), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ResponseErrorJson),StatusCodes.Status400BadRequest)]
         
@@ -73,7 +73,7 @@ namespace MyRecipeBook.API.Controllers
             return NoContent();
         }
 
-        [HttpPost]
+        [HttpPost("generate")]
         [ProducesResponseType(typeof(RequestGenerateRecipeJson), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseErrorJson),StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Generate([FromServices] IGenerateRecipeUseCase useCase, [FromBody] RequestGenerateRecipeJson request)

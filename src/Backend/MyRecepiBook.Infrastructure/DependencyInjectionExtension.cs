@@ -9,7 +9,7 @@ using MyRecipeBook.Domain.Repositories.User;
 using MyRecipeBook.Domain.Security.Cryptography;
 using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Domain.Services.LoggedUser;
-using MyRecipeBook.Domain.Services.OpenaAI;
+using MyRecipeBook.Domain.Services.OpenAI;
 using MyRecipeBook.Domain.ValueObjects;
 using MyRecipeBook.Infrastructure.DataAccess;
 using MyRecipeBook.Infrastructure.DataAccess.Repositories;
@@ -19,8 +19,10 @@ using MyRecipeBook.Infrastructure.Security.Tokens.Access.Generator;
 using MyRecipeBook.Infrastructure.Security.Tokens.Access.Validator;
 using MyRecipeBook.Infrastructure.Services.LoggedUser;
 using MyRecipeBook.Infrastructure.Services.OpenAI;
+using OpenAI;
 using OpenAI.Chat;
 using System.Reflection;
+using System.ClientModel;
 
 namespace MyRecipeBook.Infrastructure
 {
@@ -37,6 +39,7 @@ namespace MyRecipeBook.Infrastructure
             
             AddDbContext_SqlServer(services,configuration);
             AddFluentMigrator(services,configuration);
+            AddOpenAi(services,configuration);
             
         }
         private static void AddDbContext_SqlServer(IServiceCollection services, IConfiguration configuration)
@@ -94,7 +97,7 @@ namespace MyRecipeBook.Infrastructure
 
             var key = configuration.GetValue<string>("Settings:OpenAi:ApiKey");
 
-            services.AddScoped(c => new ChatClient(MyRecipeBookRuleConstants.CHAT_MODEL, apiKey));
+            services.AddScoped(c => new ChatClient(MyRecipeBookRuleConstants.CHAT_MODEL_GPT,key));
         }
     }
 }

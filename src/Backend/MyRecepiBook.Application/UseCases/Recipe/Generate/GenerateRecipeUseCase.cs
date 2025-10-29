@@ -1,6 +1,8 @@
-﻿using MyRecipeBook.Communication.Requests;
+﻿using MyRecipeBook.Application.UseCases.Recipe.Generate;
+using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Response;
 using MyRecipeBook.Domain.Services.OpenAI;
+using MyRecipeBook.Exceptions.ExceptionsBase;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +42,10 @@ namespace MyRecipeBook.Application.UseCases.Recipe.GenerateRecipe
 
         private void Validate(RequestGenerateRecipeJson request)
         {
+            var result = new GenerateRecipeValidator().Validate(request);
 
+            if (!result.IsValid)
+                throw new ErrorOnValidationException(result.Errors.Select(e => e.ErrorMessage).ToList());
         }
     }
 }

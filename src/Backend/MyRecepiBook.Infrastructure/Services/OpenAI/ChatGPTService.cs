@@ -28,7 +28,7 @@ namespace MyRecipeBook.Infrastructure.Services.OpenAI
             };
 
             var completion = await _chatClient.CompleteChatAsync(messages);
-
+            
             var responseList = completion.Value.Content[0].Text
                 .Split("\n")
                 .Where(response => !response.Trim().Equals(string.Empty))
@@ -37,7 +37,7 @@ namespace MyRecipeBook.Infrastructure.Services.OpenAI
 
             var step = 1;
 
-            return new GeneratedRecipeDto
+            return new GenerateRecipeDto
             {
                 Title = responseList[0],
                 CookingTime = (CookingTime)Enum.Parse(typeof(CookingTime), responseList[1]),
