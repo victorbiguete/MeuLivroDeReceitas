@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FileTypeChecker.Extensions;
+using FileTypeChecker.Types;
+using Microsoft.AspNetCore.Http;
 using MyRecipeBook.Domain.Repositories;
 using MyRecipeBook.Domain.Repositories.Recipe;
 using MyRecipeBook.Domain.Services.LoggedUser;
@@ -34,6 +36,15 @@ namespace MyRecipeBook.Application.UseCases.Recipe.Image
             if ((recipe is null))
             {
                 throw new NotFoundException(ResourceMessagesExceptions.RECIPE_NOT_FOUND);
+            }
+
+            var fileStream = file.OpenReadStream();
+
+            if(!fileStream.Is<PortableNetworkGraphic>() && !fileStream.Is<JointPhotographicExpertsGroup>())
+            {
+                throw new ErrorOnValidationException([
+                    ResourceMessagesExceptions.ONLY_IMAGES_ACCEPTED]
+                );
             }
         }
     }
