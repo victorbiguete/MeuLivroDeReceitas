@@ -23,6 +23,9 @@ using OpenAI;
 using OpenAI.Chat;
 using System.Reflection;
 using System.ClientModel;
+using MyRecipeBook.Domain.Services.Storage;
+using MyRecipeBook.Infrastructure.Services.Storage;
+using Azure.Storage.Blobs;
 
 namespace MyRecipeBook.Infrastructure
 {
@@ -40,7 +43,7 @@ namespace MyRecipeBook.Infrastructure
             AddDbContext_SqlServer(services,configuration);
             AddFluentMigrator(services,configuration);
             AddOpenAi(services,configuration);
-            
+            AddAzureStorage(IServiceCollection services, IConfiguration configuration);
         }
         private static void AddDbContext_SqlServer(IServiceCollection services, IConfiguration configuration)
         {
@@ -98,6 +101,13 @@ namespace MyRecipeBook.Infrastructure
             var key = configuration.GetValue<string>("Settings:OpenAi:ApiKey");
 
             services.AddScoped(c => new ChatClient(MyRecipeBookRuleConstants.CHAT_MODEL_GPT,key));
+        }
+
+        private static void AddAzureStorage(IServiceCollection services, IConfiguration configuration)
+        {
+            var connectionString = configuration.GetValue<string>("Settings: BlobStorage:Azure");
+
+            services.AddScoped<IBlobStorageService>(c => new AzureStorageService(new BlobServiceClient(connectionString)));
         }
     }
 }
