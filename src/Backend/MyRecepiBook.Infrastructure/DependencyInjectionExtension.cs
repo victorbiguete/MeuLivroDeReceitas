@@ -43,7 +43,7 @@ namespace MyRecipeBook.Infrastructure
             AddDbContext_SqlServer(services,configuration);
             AddFluentMigrator(services,configuration);
             AddOpenAi(services,configuration);
-            AddAzureStorage(IServiceCollection services, IConfiguration configuration);
+            AddAzureStorage(services,configuration);
         }
         private static void AddDbContext_SqlServer(IServiceCollection services, IConfiguration configuration)
         {
@@ -105,7 +105,7 @@ namespace MyRecipeBook.Infrastructure
 
         private static void AddAzureStorage(IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetValue<string>("Settings: BlobStorage:Azure");
+            var connectionString = configuration.GetValue<string>("Settings:BlobStorage:Azure");
 
             services.AddScoped<IBlobStorageService>(c => new AzureStorageService(new BlobServiceClient(connectionString)));
         }

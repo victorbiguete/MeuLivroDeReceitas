@@ -9,6 +9,6 @@ namespace MyRecipeBook.Domain.Services.Storage
 {
     public interface IBlobStorageService
     {
-        Task Upload(User user, string fileName);
+        Task Upload(User user, Stream file, string fileName);
     }
 }
