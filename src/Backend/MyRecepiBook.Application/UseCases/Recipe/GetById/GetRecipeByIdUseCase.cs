@@ -42,7 +42,7 @@ namespace MyRecipeBook.Application.UseCases.Recipe.GetById
 
             if (!string.IsNullOrEmpty(recipe.ImageIdentifier))
             {
-                var url = await _blobStorageService.GetImageUrl(loggedUser, recipe.ImageIdentifier);
+                var url = await _blobStorageService.GetFileUrl(loggedUser, recipe.ImageIdentifier);
 
                 response.ImageUrl = url;
             }
