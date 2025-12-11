@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyRecipeBook.Communication.Requests
 {
-    public record RequestRecipeJson
+    public class RequestRecipeJson
     {
         public string Title { get; set; } = string.Empty;
         public CookingTime? CookingTime { get; set; }
