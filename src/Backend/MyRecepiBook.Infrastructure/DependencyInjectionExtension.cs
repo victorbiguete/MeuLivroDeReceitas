@@ -107,6 +107,7 @@ namespace MyRecipeBook.Infrastructure
         {
             var connectionString = configuration.GetValue<string>("Settings:BlobStorage:Azure");
 
+            if(!string.IsNullOrEmpty(connectionString))
             services.AddScoped<IBlobStorageService>(c => new AzureStorageService(new BlobServiceClient(connectionString)));
         }
     }
