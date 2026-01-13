@@ -1,4 +1,5 @@
-﻿using CommomTestsUtilities.Entities;
+﻿using CommomTestsUtilities.BlobStorage;
+using CommomTestsUtilities.Entities;
 using CommomTestsUtilities.IdEncryption;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -32,6 +33,9 @@ namespace WebApi.Test
                     var provider = services
                     .AddEntityFrameworkInMemoryDatabase()
                     .BuildServiceProvider();
+
+                    var blobStorage = new BlobStorageServiceBuilder().Build();
+                    services.AddScoped(option => blobStorage);
 
                     services.AddDbContext<AppDbContext>(options =>
                     {

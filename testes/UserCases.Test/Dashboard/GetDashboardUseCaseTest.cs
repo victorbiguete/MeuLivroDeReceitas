@@ -1,4 +1,5 @@
-﻿using CommomTestsUtilities.Entities;
+﻿using CommomTestsUtilities.BlobStorage;
+using CommomTestsUtilities.Entities;
 using CommomTestsUtilities.LoggedUser;
 using CommomTestsUtilities.Mapper;
 using CommomTestsUtilities.Repositories;
@@ -30,6 +31,7 @@ namespace UserCases.Test.Dashboard
                 recipe.Id.Should().NotBeNullOrWhiteSpace();
                 recipe.Title.Should().NotBeNullOrWhiteSpace();
                 recipe.AmountIngredients.Should().BeGreaterThan(0);
+                recipe.ImageUrl.Should().NotBeNullOrWhiteSpace();
             });
         }
 
@@ -38,8 +40,9 @@ namespace UserCases.Test.Dashboard
             var mapper = MapperBuilder.Build();
             var loggedUser = LoggedUserBuilder.Build(user);
             var repository = new RecipeReadOnlyRepositoryBuilder().GetForDashboard(user,recipes).Build();
+            var blobStorage = new BlobStorageServiceBuilder().GetFileUrl(user,recipes).Build();
 
-            return new GetDashboardUseCase(repository,mapper,loggedUser);
+            return new GetDashboardUseCase(repository,mapper,loggedUser,blobStorage);
         }
     }
 }

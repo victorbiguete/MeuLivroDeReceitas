@@ -1,4 +1,5 @@
-﻿using CommomTestsUtilities.Entities;
+﻿using CommomTestsUtilities.BlobStorage;
+using CommomTestsUtilities.Entities;
 using CommomTestsUtilities.LoggedUser;
 using CommomTestsUtilities.Repositories;
 using FluentAssertions;
@@ -49,8 +50,9 @@ namespace UserCases.Test.Recipe.Delete
             var repositoryRead = new RecipeReadOnlyRepositoryBuilder().GetById(user,recipe).Build();
             var repositoryWrite = RecipeWriteOnlyRepositoryBuilder.Build();
             var unitOfWork = UnitOfWorkBuilder.Build();
+            var blobStorage = new BlobStorageServiceBuilder().GetFileUrl(user, recipe?.ImageIdentifier).Build();
 
-            return new DeleteRecipeUseCase(repositoryRead,loggedUser,repositoryWrite,unitOfWork);
+            return new DeleteRecipeUseCase(repositoryRead,loggedUser,repositoryWrite,unitOfWork, blobStorage);
         }
     }
 }

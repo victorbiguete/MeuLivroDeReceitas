@@ -1,4 +1,5 @@
-﻿using CommomTestsUtilities.Entities;
+﻿using CommomTestsUtilities.BlobStorage;
+using CommomTestsUtilities.Entities;
 using CommomTestsUtilities.LoggedUser;
 using CommomTestsUtilities.Mapper;
 using CommomTestsUtilities.Repositories;
@@ -51,8 +52,9 @@ namespace UserCases.Test.Recipe.GetById
             var mapper = MapperBuilder.Build();
             var loggedUser = LoggedUserBuilder.Build(user);
             var repository = new RecipeReadOnlyRepositoryBuilder().GetById(user,recipe).Build();
+            var blobStorage = new BlobStorageServiceBuilder().GetFileUrl(user, recipe?.ImageIdentifier).Build();
 
-            return new GetRecipeByIdUseCase(mapper,loggedUser,repository);
+            return new GetRecipeByIdUseCase(mapper,loggedUser,repository,blobStorage);
 
         }
     }

@@ -38,6 +38,7 @@ namespace CommomTestsUtilities.Entities
                 .RuleFor(r => r.Title, f => f.Lorem.Word())
                 .RuleFor(r => r.CookingTime, f => f.PickRandom<CookingTime>())
                 .RuleFor(r => r.Difficulty, f => f.PickRandom<Difficulty>())
+                .RuleFor(r => r.ImageIdentifier, _ => $"{Guid.NewGuid()}.png")
                 .RuleFor(r => r.Ingredients, f => f.Make(1, () => new Ingredient
                 {
                     Id = 1,
