@@ -1,4 +1,5 @@
-﻿using FluentMigrator.Runner;
+﻿using Azure.Storage.Blobs;
+using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
@@ -10,6 +11,8 @@ using MyRecipeBook.Domain.Security.Cryptography;
 using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Domain.Services.LoggedUser;
 using MyRecipeBook.Domain.Services.OpenAI;
+using MyRecipeBook.Domain.Services.ServiceBus;
+using MyRecipeBook.Domain.Services.Storage;
 using MyRecipeBook.Domain.ValueObjects;
 using MyRecipeBook.Infrastructure.DataAccess;
 using MyRecipeBook.Infrastructure.DataAccess.Repositories;
@@ -19,13 +22,12 @@ using MyRecipeBook.Infrastructure.Security.Tokens.Access.Generator;
 using MyRecipeBook.Infrastructure.Security.Tokens.Access.Validator;
 using MyRecipeBook.Infrastructure.Services.LoggedUser;
 using MyRecipeBook.Infrastructure.Services.OpenAI;
+using MyRecipeBook.Infrastructure.Services.ServiceBus;
+using MyRecipeBook.Infrastructure.Services.Storage;
 using OpenAI;
 using OpenAI.Chat;
-using System.Reflection;
 using System.ClientModel;
-using MyRecipeBook.Domain.Services.Storage;
-using MyRecipeBook.Infrastructure.Services.Storage;
-using Azure.Storage.Blobs;
+using System.Reflection;
 
 namespace MyRecipeBook.Infrastructure
 {
@@ -61,6 +63,7 @@ namespace MyRecipeBook.Infrastructure
             services.AddScoped<IRecipeWriteOnlyRepository,RecipeRepository>();
             services.AddScoped<IRecipeReadOnlyRepository, RecipeRepository>();
             services.AddScoped<IRecipeUpdateOnlyRepository, RecipeRepository>();
+            services.AddScoped<IDeleteUserQueue, DeleteUserQueue>();
         }
 
         private static void AddFluentMigrator(IServiceCollection services, IConfiguration configuration)
