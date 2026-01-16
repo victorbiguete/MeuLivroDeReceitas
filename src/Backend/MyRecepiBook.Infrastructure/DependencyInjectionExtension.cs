@@ -1,4 +1,5 @@
-﻿using Azure.Storage.Blobs;
+﻿using Azure.Messaging.ServiceBus;
+using Azure.Storage.Blobs;
 using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -112,6 +113,20 @@ namespace MyRecipeBook.Infrastructure
 
             if(!string.IsNullOrEmpty(connectionString))
             services.AddScoped<IBlobStorageService>(c => new AzureStorageService(new BlobServiceClient(connectionString)));
+        }
+
+        private static void AddQueue(IServiceCollection services, IConfiguration configuration)
+        {
+            var connectionString = configuration.GetValue<string>("Settings:ServiceBus:DeleteUserAccount");
+
+            var client = new ServiceBusClient(connectionString, new ServiceBusClientOptions
+            {
+                TransportType = ServiceBusTransportType.AmqpWebSockets
+            });
+
+            var deleteQueue = new DeleteUserQueue(client.CreateSender("user"));
+
+            services.AddScoped<IDeleteUserQueue>(options => );
         }
     }
 }
