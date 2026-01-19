@@ -47,6 +47,7 @@ namespace MyRecipeBook.Infrastructure
             AddFluentMigrator(services,configuration);
             AddOpenAi(services,configuration);
             AddAzureStorage(services,configuration);
+            AddQueue(services,configuration);
         }
         private static void AddDbContext_SqlServer(IServiceCollection services, IConfiguration configuration)
         {
@@ -119,14 +120,22 @@ namespace MyRecipeBook.Infrastructure
         {
             var connectionString = configuration.GetValue<string>("Settings:ServiceBus:DeleteUserAccount");
 
+            //criação do Client
             var client = new ServiceBusClient(connectionString, new ServiceBusClientOptions
             {
                 TransportType = ServiceBusTransportType.AmqpWebSockets
             });
-
+            //classe de criação de mensagem
             var deleteQueue = new DeleteUserQueue(client.CreateSender("user"));
 
-            services.AddScoped<IDeleteUserQueue>(options => );
+            //classe de recebimento das Mensagens
+            var deleteUserProcessor = new DeleteUserProcessor(client.CreateProcessor("user",new ServiceBusProcessorOptions
+            {
+                MaxConcurrentCalls = 1
+            }));
+
+            services.AddSingleton(deleteUserProcessor);
+            services.AddScoped<IDeleteUserQueue>(options => deleteQueue);
         }
     }
 }

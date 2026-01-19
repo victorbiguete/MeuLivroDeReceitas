@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.API.Token;
+using MyRecipeBook.API.BackgroundServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,6 +58,7 @@ builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddScoped<ITokenProvider, HttpContextTokenValue>();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddHostedService<DeleteUserService>();
 
 var app = builder.Build();
 
