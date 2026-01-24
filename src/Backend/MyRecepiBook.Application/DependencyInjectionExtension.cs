@@ -10,6 +10,7 @@ using MyRecipeBook.Application.UseCases.Recipe.GetById;
 using MyRecipeBook.Application.UseCases.Recipe.Image;
 using MyRecipeBook.Application.UseCases.Recipe.Update;
 using MyRecipeBook.Application.UseCases.User.ChangePassword;
+using MyRecipeBook.Application.UseCases.User.Delete.Delete;
 using MyRecipeBook.Application.UseCases.User.Delete.Request;
 using MyRecipeBook.Application.UseCases.User.Profile;
 using MyRecipeBook.Application.UseCases.User.Register;
@@ -50,6 +51,7 @@ namespace MyRecipeBook.Application
             services.AddScoped<IGenerateRecipeUseCase, GenerateRecipeUseCase>();
             services.AddScoped<IAddUpdateImageCoverUseCase, AddUpdateImageCoverUseCase>();
             services.AddScoped<IRequestDeleteUserUseCase, RequestDeleteUserUseCase>();
+            services.AddScoped<IDeleteUserAccountUseCase, DeleteUserAccountUseCase>();
         }
 
 

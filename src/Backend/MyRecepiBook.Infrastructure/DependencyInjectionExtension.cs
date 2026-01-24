@@ -62,10 +62,11 @@ namespace MyRecipeBook.Infrastructure
             services.AddScoped<IUserReadOnlyRepository, UserRepository>();
             services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
             services.AddScoped<IUserUpdateOnlyRepository, UserRepository>();
+            services.AddScoped<IUserDeleteOnlyRepository, UserRepository>();
             services.AddScoped<IRecipeWriteOnlyRepository,RecipeRepository>();
             services.AddScoped<IRecipeReadOnlyRepository, RecipeRepository>();
             services.AddScoped<IRecipeUpdateOnlyRepository, RecipeRepository>();
-            services.AddScoped<IDeleteUserQueue, DeleteUserQueue>();
+            
         }
 
         private static void AddFluentMigrator(IServiceCollection services, IConfiguration configuration)

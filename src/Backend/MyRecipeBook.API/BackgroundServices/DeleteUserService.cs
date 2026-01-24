@@ -1,4 +1,5 @@
 ﻿using Azure.Messaging.ServiceBus;
+using MyRecipeBook.Application.UseCases.User.Delete.Delete;
 using MyRecipeBook.Infrastructure.Services.ServiceBus;
 
 namespace MyRecipeBook.API.BackgroundServices

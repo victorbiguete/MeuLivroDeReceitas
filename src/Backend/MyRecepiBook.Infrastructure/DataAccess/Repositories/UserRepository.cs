@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MyRecipeBook.Infrastructure.DataAccess.Repositories
 {
-    public class UserRepository : IUserReadOnlyRepository, IUserWriteOnlyRepository, IUserUpdateOnlyRepository
+    public class UserRepository : IUserReadOnlyRepository, IUserWriteOnlyRepository, IUserUpdateOnlyRepository, IUserDeleteOnlyRepository
     {
         private readonly AppDbContext _context;
 
@@ -22,6 +22,20 @@ namespace MyRecipeBook.Infrastructure.DataAccess.Repositories
         {
             await _context.Users.AddAsync(user);
             
+        }
+
+        public async Task DeleteAccount(Guid userIdentifier)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(user => user.UserIdentifier == userIdentifier);
+
+            if (user is null)
+                return;
+
+            var recipes = _context.Recipes.Where(recipe => recipe.UserId == user.Id);
+
+            _context.Recipes.RemoveRange(recipes);
+
+            _context.Users.Remove(user);
         }
 
         public async Task<bool> ExistActiveUserWithEmail(string email)
