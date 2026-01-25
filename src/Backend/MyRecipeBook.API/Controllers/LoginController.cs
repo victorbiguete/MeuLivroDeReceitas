@@ -18,5 +18,12 @@ namespace MyRecipeBook.API.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet]
+        [Route("google")]
+        public async Task<IActionResult> Get()
+        {
+            return Ok();
+        }
     }
 }
