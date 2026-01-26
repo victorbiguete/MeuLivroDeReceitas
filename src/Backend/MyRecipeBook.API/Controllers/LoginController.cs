@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Mvc;
 using MyRecipeBook.Application.UseCases.Login.DoLogin;
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Response;
+using System.Security.Claims;
 
 namespace MyRecipeBook.API.Controllers
 {
@@ -21,9 +24,24 @@ namespace MyRecipeBook.API.Controllers
 
         [HttpGet]
         [Route("google")]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> LoginGoogle(string returnUrl)
         {
-            return Ok();
+            var authenticate = await Request.HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
+
+            if (IsNoAuthenticated(authenticate))
+            {
+                return Challenge(GoogleDefaults.AuthenticationScheme);
+            }
+            else
+            {
+                var clains = authenticate.Principal!.Identities.First().Claims;
+
+                var name = clains.First(c => c.Type == ClaimTypes.Name).Value;
+                
+                var email = clains.First(c => c.Type == ClaimTypes.Email).Value;
+
+                return Redirect(returnUrl);
+            }
         }
     }
 }
