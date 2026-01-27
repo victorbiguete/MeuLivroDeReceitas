@@ -14,5 +14,6 @@ namespace MyRecipeBook.Domain.Repositories.User
         public Task<Entities.User?> GetByEmailAndPassword(string email, string password);
 
         public Task<bool> ExistActiveUserWithIdentifier(Guid userIdentifier);
+        public Task<Entities.User?> GetByEmail(string email);
     }
 }
