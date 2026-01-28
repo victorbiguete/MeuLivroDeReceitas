@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyRecipeBook.Communication.Response
+namespace MyRecipeBook.Communication.Requests
 {
-    public record ResponseTokensJson
+    public class RequestNewTokenJson
     {
-        public string AccessToken { get; set; } = string.Empty;
         public string RefreshToken { get; set; } = string.Empty;
     }
 }

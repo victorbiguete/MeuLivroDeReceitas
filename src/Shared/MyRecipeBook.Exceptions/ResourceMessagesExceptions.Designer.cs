@@ -151,6 +151,15 @@ namespace MyRecipeBook.Exceptions {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Expired Session.
+        /// </summary>
+        public static string EXPIRED_SESSION {
+            get {
+                return ResourceManager.GetString("EXPIRED_SESSION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Ingredient Empty.
         /// </summary>
         public static string INGREDIENT_EMPTY {
@@ -201,6 +210,15 @@ namespace MyRecipeBook.Exceptions {
         public static string INVALID_PASSWORD {
             get {
                 return ResourceManager.GetString("INVALID_PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Invalid Session.
+        /// </summary>
+        public static string INVALID_SESSION {
+            get {
+                return ResourceManager.GetString("INVALID_SESSION", resourceCulture);
             }
         }
         

@@ -147,6 +147,9 @@
   <data name="EMAIL_OR_PASSWORD_INVALID" xml:space="preserve">
     <value>The Email or Password is invalid</value>
   </data>
+  <data name="EXPIRED_SESSION" xml:space="preserve">
+    <value>Expired Session</value>
+  </data>
   <data name="INGREDIENT_EMPTY" xml:space="preserve">
     <value>Ingredient Empty</value>
   </data>
@@ -164,6 +167,9 @@
   </data>
   <data name="INVALID_PASSWORD" xml:space="preserve">
     <value>Invalid Password</value>
+  </data>
+  <data name="INVALID_SESSION" xml:space="preserve">
+    <value>Invalid Session</value>
   </data>
   <data name="NAME_EMPTY" xml:space="preserve">
     <value>The Name cannot be empty</value>

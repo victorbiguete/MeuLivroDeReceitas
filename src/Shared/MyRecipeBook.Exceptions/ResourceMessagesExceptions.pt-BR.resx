@@ -147,6 +147,9 @@
   <data name="EMAIL_OR_PASSWORD_INVALID" xml:space="preserve">
     <value>O Email ou a Senha estão Invalidos</value>
   </data>
+  <data name="EXPIRED_SESSION" xml:space="preserve">
+    <value>Sessão Expirada</value>
+  </data>
   <data name="INGREDIENT_EMPTY" xml:space="preserve">
     <value>Ingrediente Vazio</value>
   </data>
@@ -164,6 +167,9 @@
   </data>
   <data name="INVALID_PASSWORD" xml:space="preserve">
     <value>Senha Inválida</value>
+  </data>
+  <data name="INVALID_SESSION" xml:space="preserve">
+    <value>Sessão Invalida</value>
   </data>
   <data name="NAME_EMPTY" xml:space="preserve">
     <value>O Nome não pode estar Vazio</value>

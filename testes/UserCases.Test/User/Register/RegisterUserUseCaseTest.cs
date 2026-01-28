@@ -26,7 +26,7 @@ namespace UserCases.Test.User.Register
 
             var result = await useCase.Execute(request);
 
-            result.Name.Should().NotBeNull();
+            result.Should().NotBeNull();
             result.Tokens.Should().NotBeNull();
             result.Name.Should().Be(request.Name);
             result.Tokens.AccessToken.Should().NotBeNullOrEmpty();
@@ -73,10 +73,14 @@ namespace UserCases.Test.User.Register
 
             var accessTokenGenerator = JwtTokenGeneratorBuilder.Build();
 
+            var refreshTokenGenerator = RefreshTokenGeneratorBuilder.Build();
+
+            var tokenRepository = new TokenRepositoryBuilder().Build();
+
             if (!string.IsNullOrEmpty(email))
                 readRepositoryBuilder.ExistActiveUserWithEmail(email);
 
-            return new RegisterUserUseCase(readRepositoryBuilder.Build(), writeRepository, mapper, passwordEncripter, unitOfWork, accessTokenGenerator);
+            return new RegisterUserUseCase(readRepositoryBuilder.Build(), writeRepository, mapper, passwordEncripter, unitOfWork, accessTokenGenerator, tokenRepository, refreshTokenGenerator);
         }
     }
 }
