@@ -120,7 +120,7 @@ namespace MyRecipeBook.Infrastructure
         {
             var connectionString = configuration.GetValue<string>("Settings:ServiceBus:DeleteUserAccount");
 
-            if (!string.IsNullOrEmpty(connectionString))
+            if (string.IsNullOrEmpty(connectionString))
                 return;
 
             //criação do Client

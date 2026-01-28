@@ -59,7 +59,6 @@ builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddScoped<ITokenProvider, HttpContextTokenValue>();
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddHostedService<DeleteUserService>();
 
 if (!builder.Configuration.IsUnitTestEnviroment())
 {
