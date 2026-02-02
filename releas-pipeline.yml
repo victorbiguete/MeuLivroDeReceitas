@@ -1,0 +1,25 @@
+trigger:
+- master
+
+variables:
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: 'a19fca31-74b2-48ba-87be-fda21d3721b5'
+  imageRepository: 'apimyrecipebook'
+  containerRegistry: 'apimyrecipebooks.azurecr.io'
+  dockerfilePath: 'Dockerfile'
+  tag: '$(Build.BuildId)'
+
+pool:
+      vmImage: 'ubuntu-latest'
+
+steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          latest
+          $(tag)
