@@ -20,7 +20,7 @@ steps:
   inputs:
     secureFile: 'appsettings.Production.json'
 
-- script:
+- script: |
     cp $(appsettings.secureFilePath) src/Backend/MyRecipeBook.API
 
 - task: Docker@2
