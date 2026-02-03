@@ -1,5 +1,8 @@
 trigger:
-- master
+  branches:
+    include:
+      - develop
+      - master
 
 variables:
   # Container registry service connection established during pipeline creation
