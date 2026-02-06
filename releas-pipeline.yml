@@ -1,5 +1,8 @@
 trigger:
-- master
+  branches:
+    include:
+      - develop
+      - master
 
 variables:
   # Container registry service connection established during pipeline creation
@@ -22,6 +25,9 @@ steps:
 
 - script: |
     cp $(appsettings.secureFilePath) src/Backend/MyRecipeBook.API
+- script: |
+    echo "Build.SourcesDirectory = $(Build.SourcesDirectory)"
+    ls -la $(Build.SourcesDirectory)
 
 - task: Docker@2
   displayName: Build and push an image to container registry
@@ -29,6 +35,7 @@ steps:
     command: buildAndPush
     repository: $(imageRepository)
     dockerfile: $(dockerfilePath)
+    buildContext: '$(Build.SourcesDirectory)'
     containerRegistry: $(dockerRegistryServiceConnection)
     tags: |
       latest
