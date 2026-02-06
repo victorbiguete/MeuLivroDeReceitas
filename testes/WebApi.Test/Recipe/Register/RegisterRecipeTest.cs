@@ -1,0 +1,101 @@
+﻿using CommomTestsUtilities.Requests;
+using CommomTestsUtilities.Tokens;
+using FluentAssertions;
+using System.Net;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Text.Json;
+using WebApi.Test.InlineData;
+using MyRecipeBook.Exceptions;
+
+namespace WebApi.Test.Recipe.Register
+{
+    public class RegisterRecipeTest : MyRecipeBookClassFixture
+    {
+        private const string METHOD = "recipe/register";
+        private readonly Guid _userIdentifier;
+
+        public RegisterRecipeTest(CustomWebApplicationFactory factory) : base(factory)
+        {
+            _userIdentifier = factory.GetUserIdentifier();
+        }
+
+        [Fact]
+        public async Task Success()
+        {
+            var request = RequestRecipeJsonBuilder.Build();
+
+            var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
+
+            var response = await DoPostFormData(method: METHOD, request: request, token: token);
+
+            response.StatusCode.Should().Be(HttpStatusCode.Created);
+
+            await using var responseBody = await response.Content.ReadAsStreamAsync();
+
+            var responseData = await JsonDocument.ParseAsync(responseBody);
+
+            responseData.RootElement.GetProperty("title").GetString().Should().Be(request.Title);
+            responseData.RootElement.GetProperty("id").GetString().Should().NotBeNullOrWhiteSpace();
+        }
+
+        [Theory]
+        [ClassData(typeof(CultureInlineDataTest))]
+        public async Task Error_Title_Empty(string culture)
+        {
+            var request = RequestRecipeJsonBuilder.Build();
+            request.Title = string.Empty;
+
+            var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier);
+
+            var response = await DoPostFormData(method: METHOD, request: request, token: token, culture: culture);
+
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+            await using var responseBody = await response.Content.ReadAsStreamAsync();
+
+            var responseData = await JsonDocument.ParseAsync(responseBody);
+
+            var errors = responseData.RootElement.GetProperty("errors").EnumerateArray();
+
+            var expectedMessage = ResourceMessagesExceptions.ResourceManager.GetString("RECIPE_TITLE_EMPTY", new System.Globalization.CultureInfo(culture));
+
+            errors.Should().HaveCount(1).And.Contain(c => c.GetString()!.Equals(expectedMessage));
+        }
+
+        [Fact]
+        public async Task Error_Token_invalid()
+        {
+            var request = RequestRecipeJsonBuilder.Build();
+
+            var response = await DoPost(method: METHOD, request: request, token: "TokenInvalid");
+
+            response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+        }
+
+        [Fact]
+        public async Task Error_Without_Token()
+        {
+            var request = RequestRecipeJsonBuilder.Build();
+
+            var response = await DoPost(method: METHOD, request: request, token: string.Empty);
+
+            response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+        }
+
+        [Fact]
+        public async Task Error_Token_With_User_NotFound()
+        {
+            var request = RequestRecipeJsonBuilder.Build();
+
+            var token = JwtTokenGeneratorBuilder.Build().Generate(Guid.NewGuid());
+
+            var response = await DoPost(method: METHOD, request: request, token: token);
+
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.Unauthorized);
+        }
+    }
+}

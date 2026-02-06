@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 trigger:
   branches:
     include:
@@ -39,4 +40,47 @@ steps:
     containerRegistry: $(dockerRegistryServiceConnection)
     tags: |
       latest
+=======
+trigger:
+  branches:
+    include:
+      - develop
+      - master
+
+variables:
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: 'a19fca31-74b2-48ba-87be-fda21d3721b5'
+  imageRepository: 'apimyrecipebook'
+  containerRegistry: 'apimyrecipebooks.azurecr.io'
+  dockerfilePath: 'Dockerfile'
+  tag: '$(Build.BuildId)'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+
+- task: DownloadSecureFile@1  
+  displayName: Download appsettings.json
+  name: appsettings
+  inputs:
+    secureFile: 'appsettings.Production.json'
+
+- script: |
+    cp $(appsettings.secureFilePath) src/Backend/MyRecipeBook.API
+- script: |
+    echo "Build.SourcesDirectory = $(Build.SourcesDirectory)"
+    ls -la $(Build.SourcesDirectory)
+
+- task: Docker@2
+  displayName: Build and push an image to container registry
+  inputs:
+    command: buildAndPush
+    repository: $(imageRepository)
+    dockerfile: $(dockerfilePath)
+    buildContext: '$(Build.SourcesDirectory)'
+    containerRegistry: $(dockerRegistryServiceConnection)
+    tags: |
+      latest
+>>>>>>> release/version1.0
       $(tag)
