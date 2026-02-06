@@ -13,6 +13,8 @@ using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.API.Token;
 using MyRecipeBook.API.BackgroundServices;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using MyRecipeBook.Infrastructure.DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,7 +68,19 @@ if (!builder.Configuration.IsUnitTestEnviroment())
     AddGoogleAuthentication();
 }
 
+builder.Services.AddHealthChecks().AddDbContextCheck<AppDbContext>();
+
 var app = builder.Build();
+
+app.MapHealthChecks("/Health", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+{
+    AllowCachingResponses = false,
+    ResultStatusCodes =
+    {
+        [HealthStatus.Healthy] = StatusCodes.Status200OK,
+        [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
+    }
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
